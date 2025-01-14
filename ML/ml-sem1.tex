@@ -10,12 +10,11 @@
 
 \begin{document}
 \title{Ответы по матлогике}
-\author{\url{github.com}}
 \maketitle
 
 \newcommand{\itembf}[1]{\item \textbf{#1}}
-\newtheorem*{defin}{Определение}[subsection]
-\newtheorem*{theorem}{Теорема}[subsection]
+\newtheorem*{defin}{Определение}
+\newtheorem*{theorem}{Теорема}
 
 \newpage
 \tableofcontents
@@ -33,10 +32,6 @@
   \item {Номером}
   \item {Формулами}
 \end{enumerate}
-
-{\small
-  \textbf{Пример}
-}
 \subparagraph{Приоритет выполнения операций}
 
 \subsection{Булевы функции одной и двух переменных}
@@ -109,20 +104,28 @@ $f_{15}$ & 1 & 1 & 1 & 1 & \makecell{Тавтология} \\
 Функции без названий либо имеют очевидные названия, либо ущербны по своей природе и не заслуживают его.
 
 \subsection{Основные законы алгебры логики}
-Основные законы алгебры логики касаются конъюнкции и дизъюнкции. Вощможно, на экзамене их потребуется доказать. Делать это лучше всего с помощью таблцы истинности, поскольку на этом этапе все законы как бы не доказаны и опираться на них нельзя.
+Основные законы алгебры логики касаются конъюнкции и дизъюнкции. Возможно, на экзамене их потребуется доказать. Делать это лучше всего с помощью таблцы истинности, поскольку на этом этапе все законы как бы не доказаны и опираться на них нельзя.
 \begin{enumerate}
   \item Идемпотентность: $x \land x = x$ \hspace{2cm} $x \lor x = x$
   \item Коммутативность: $x \land y = x \land y$ \hspace{2cm} $x \lor y = y \lor x$
-  \item Ассоциативность: $x \land (y \land z) = (x \land y) \land z$ \hspace{1cm} $x \lor (y \lor z) = (x \lor y) \lor z$
-  \item Поглощение
-  \item Дистрибутивность
-  \item Правила де Моргана
+  \item Ассоциативность: \\ $x \land (y \land z) = (x \land y) \land z$ \hspace{1cm} $x \lor (y \lor z) = (x \lor y) \lor z$
+  \item Поглощение: $x \lor (x \land y) = x \hspace{1cm} x \land (x \lor y) = x$
+  \item Дистрибутивность \\ $x \land (y \lor z) = (x \land y) \lor (x \lor z) \hspace{1cm} x \land (y \lor z) = (x \land y) \lor (x \lor z)$
+  \item Правила де Моргана \\
+  $\overline{x \lor y} = \overline x \land \overline y \hspace{1cm} \overline{x \land y} = \overline x \lor \overline y$
   \item Свойства констант
+  $$ 1 \land x = x \hspace{1cm} 1 \lor x = 1 $$
+  $$ 0 \land x = 0 \hspace{1cm} 0 \lor x = x $$
   \item Закон исключения третьего и закон противоречия
+  $$ x \lor \overline x = 1 \hspace{1cm} x \land \overline x = 0$$
   \item Снятие двойного отрицания $\overline{\overline{x}} = x$
   \item Склеивание
-  \item Связь импликации с конъюнкцией, дизъюнкцией, отрицанием
+  $$ (x \land y) \lor (\overline x \land y) = y$$
+  $$ (x \lor y) \land (\overline x \lor y) = y$$
+  \item Связь импликации с конъюнкцией, дизъюнкцией
+  $$ x \rightarrow y = \overline{x} \lor y = \overline{x \land \overline{y}}$$
   \item Выражение эквивалентности
+  $$ x \leftrightarrow y = (x \rightarrow y) \land (y \rightarrow x)$$
 \end{enumerate}
 Из правил де Моргана следует, что если все операции в тождестве --- это конъюнкции, дизъюнкции и отрицания, то при взаимной замене конъюнкций на дизъюнкции получится верное тождество.
 \subsection{Следствия из законов алгебры логики: операции склеивания, поглощения, правила развертывания логических выражений}
