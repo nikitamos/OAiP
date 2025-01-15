@@ -43,7 +43,7 @@
 \texttt{char16\_t} & UTF-16, 16 бит &
 \texttt{u\textquotesingle{}L\textquotesingle{}} \\
 \texttt{char32\_t} & UTF-32, 32 бита &
-\texttt{U\textquotesingle{}あ\textquotesingle{}} \\
+\texttt{U\textquotesingle{}Ё\textquotesingle{}} \\
 \end{longtable}
 \end{scriptsize}
 
@@ -62,8 +62,10 @@
 \begin{verbatim}
 const wchar_t *wide_string = L"Я транслятор";
 const char8_t *utf8_string = u8"Judgement!";
-const char16_t *utf16_string = u"🐂";
-const char32_t *utf32_string = U"Съешь же ещё этих мягких французских булок, да выпей чаю.";
+const char16_t *utf16_string = u"\";
+const char32_t *utf32_string = U"Съешь же ещё этих мягких"
+                               U"французских булок, "
+                               U"да выпей чаю.";
 \end{verbatim}
 
 Однако они всегда будут оканчиваться символом с кодом 0.
