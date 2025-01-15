@@ -473,24 +473,24 @@ Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 (в языке C++ для работы с C-строками --- \verb|<cstring>|).
 
 \subsection{Длина строки}
-\verb|size_t strlen(const char *s)| - определяет длину строки \verb|s| без учёта нуль-символа.
+\mintinline{C++}|size_t strlen(const char *s)| - определяет длину строки \verb|s| без учёта нуль-символа.
 
 \subsection{Копирование строк}
 
-\verb|char *strcpy(char *dst, const char *src)|\\
+\mintinline{C++}|char *strcpy(char *dst, const char *src)|\\
 выполняет побайтное копирование символов из строки \verb|src|
 в строку \verb|dst|. Возвращает указатель \verb|dst|. Программист должен удостовериться, что \verb|dst| указывает
 на участко памяти достаточного размера.
 
-\verb|char* strncpy(char* dest, const char* src, size_t count)|\\
+\mintinline{C++}|char* strncpy(char* dest, const char* src, size_t count)|\\
 выполняет побайтное копирование \verb|count| символов из строки \verb|src| в строку \verb|dest|. Возвращает значение
 \verb|dest|.
 
 \subsection{Конкатенация строк}
-\verb|char* strcat(char *dst, const char *src)| - объединяет строку \verb|src| со строкой \verb|dst|.
+\mintinline{C++}|char* strcat(char *dst, const char *src)| - объединяет строку \verb|src| со строкой \verb|dst|.
 Результат сохраняется в \verb|dst|. 
 
-\verb|char* strncat(char* dest, const char* src, size_t count);| - объединяет \verb|count|
+\mintinline{C++}|char* strncat(char* dest, const char* src, size_t count);| - объединяет \verb|count|
 символов строки \verb|src| со строкой \verb|dest|. Результат сохраняется в \verb|dest|.
 Возвращает \verb|dest|.
 
@@ -510,10 +510,10 @@ Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 
 \vspace{0.65cm}
 
-\verb|int strcmp(const char* lhs, const char* rhs)|\\
+\mintinline{C++}|int strcmp(const char* lhs, const char* rhs)|\\
 сравнивает строку \verb|lhs| со строкой \verb|rhs|.
 
-\verb|int strcmp(const char* lhs, const char* rhs size_t count)|\\
+\mintinline{C++}|int strcmp(const char* lhs, const char* rhs size_t count)|\\
 сравнивает первые \verb|count| символов (байт) строк \verb|lhs| и \verb|rhs|.
 
 \hspace{1cm}
@@ -529,43 +529,43 @@ int strnicmp(const char* lhs, const char* rhs, size_t count);
 
 \subsection{Обработка символов}
 
-\verb|int isalnum(int c)| \\
+\mintinline{C++}|int isalnum(int c)| \\
 возвращает ненулевое значение, если символ \verb|с| является буквой или цифрой, и 0 в других случаях.
 
-\verb|int isalpha(int c)| \\
+\mintinline{C++}|int isalpha(int c)| \\
 возвращает ненулевое значение, если символ \verb|с| является буквой, и 0 в других случаях
 
-\verb|int isdigit(int c)| \\
+\mintinline{C++}|int isdigit(int c)| \\
 возвращает ненулевое значение, если символ \verb|с| является цифрой, и 0 в других случаях
 
-\verb|int islower(int c)| \\
+\mintinline{C++}|int islower(int c)| \\
 возвращает ненулевое значение, если символ \verb|с| является буквой ASCII нижнего регистра, и 0 в других случаях
 
-\verb|int isupper(int c)| \\
+\mintinline{C++}|int isupper(int c)| \\
 возвращает ненулевое значение, если символ \verb|с| является буквой ASCII верхнего регистра, и 0 в других случаях
 
-\verb|int isspace(int c)| \\
+\mintinline{C++}|int isspace(int c)| \\
 возвращает ненулевое значение, если символ \verb|с| является пробельным символом ASCII, и 0 в других случаях
 
-\verb|int toupper(int c)| \\
+\mintinline{C++}|int toupper(int c)| \\
 Если \verb|c| --- буква регистра ASCII, то возвращает соответствующую букву верхнего регистра. В противном
 случае возвращает \verb|c|.
 
 \subsection{Поиск}
-\verb|char *strchr(const char *str, int ch)| \\
+\mintinline{C++}|char *strchr(const char *str, int ch)| \\
 Находит первое вхожденик символа \verb|сh| в строку \verb|str|.
 В случае удачного поиска возвращает указатель на место первого
 вхождения символа \verb|сh|. Если символ не найден, то возвращает \verb|NULL|.
 
-\verb|size_t strspn(const char *s, const char *accept)|\\
+\mintinline{C++}|size_t strspn(const char *s, const char *accept)|\\
 Возвращает длину в байтах начального сегмента строки \verb|s|, содержащего
 только те символы, которые входят в строку \verb|accept|.
 
-\verb|size_t strcspn(const char *s, const char *reject)|\\
+\mintinline{C++}|size_t strcspn(const char *s, const char *reject)|\\
 Возвращает длину в байтах начального сегмента строки \verb|s|, содержащего
 только те символы, которые \textbf{не} входят в строку \verb|reject|.
 
-\verb|char *strpbrk(const char *s, const char *accept)|\\
+\mintinline{C++}|char *strpbrk(const char *s, const char *accept)|\\
 Возвращает указатель  первого вхождения любого символа строки \verb|accept| в строке \verb|s|
 или \verb|NULL|, если таких символов не встретилось.
 
@@ -573,21 +573,21 @@ int strnicmp(const char* lhs, const char* rhs, size_t count);
 Если в строке \verb|nptr| не записано корректное число, то эти функции
 возвращают 0.
 
-\verb|double atof(const char* nptr)|\\
+\mintinline{C++}|double atof(const char* nptr)|\\
 преобразует строку \verb|nptr| в тип \verb|double|.
 
-\verb|int atoi(const char* nptr)|\\
+\mintinline{C++}|int atoi(const char* nptr)|\\
 преобразует строку \verb|nptr| в тип \verb|int|.
 
-\verb|long atol(const char* nptr)|\\
+\mintinline{C++}|long atol(const char* nptr)|\\
 преобразует строку \verb|nptr| в тип \verb|long|.
 
 \subsection{Функции стандартной библиотеки ввода/вывода}
 
-\verb|int getchar(void)|\\
+\mintinline{C++}|int getchar(void)|\\
 считывает символ со стандартного потока ввода и возвращает его код.
 
-\verb|char *gets(char *s)|\\
+\mintinline{C++}|char *gets(char *s)|\\
 считывает поток символов со стандартного потока ввода (\verb|stdin|)
 в строку \verb|s| до тех пор, пока не будет встречен конец строки или
 поток ввода не будет закрыт. Возвращает саму строку \verb|s|, если
@@ -719,51 +719,51 @@ c = s1[0]; // c = 'a'
 
 
 \subsection{Размер строки}
-\verb|size_t size()|\\
+\mintinline{C++}|size_t size()|\\
 возращает длину строки в виде количества байт в строке.
 
-\verb|void resize(size_t n)| \\
+\mintinline{C++}|void resize(size_t n)| \\
 Изменяет длину строки, новая длина строки становится равна \verb|n|. При этом строка может как уменьшится,
 так и увеличиться.
 
-\verb|void resize(size_t n, char c)|\\
+\mintinline{C++}|void resize(size_t n, char c)|\\
 При увеличении длины строки добавляемые символы будут равны \verb|c|.
 
-\verb|void clear()|\\
+\mintinline{C++}|void clear()|\\
 Очищает строчку, строка становится пустой.
 
-\verb|bool empty()|\\
+\mintinline{C++}|bool empty()|\\
 Возвращает \verb|true|, если строка пуста, \verb|false| - если непуста.
 
 \subsection{Модификация строки}
 \paragraph{Добавление}
 
-\verb|void push_back(char c)|\\
+\mintinline{C++}|void push_back(char c)|\\
 Добавляет в конец строки символ c, вызывается с одним параметром.
 
 Все методы, описанные ниже в этом разделе возвращают ссылку на объект строки, на
 котором вызван метод.
 
-\verb|std::string& append(size_t n, char c)|\\
+\mintinline{C++}|std::string& append(size_t n, char c)|\\
 Добавляет в конец строки \verb|n| одинаковых символов, равных \verb|с|.
 
-\verb|std::string& append(const std::string &s)|\\
-\verb|std::string& append(const char* s)|\\
+\mintinline{C++}|std::string& append(const std::string &s)|\\
+\mintinline{C++}|std::string& append(const char* s)|\\
 добавляет в конец строки содержимое строки s.
 
-\verb|std::string& append(const std::string s, size_t pos, size_t count)|\\
+\mintinline{C++}|std::string& append(const std::string s, size_t pos, size_t count)|\\
 Добавляет в конец строки символы строки \verb|s| начиная с символа с индексом \verb|pos| количеством \verb|count|.
 
-\verb|std::string &insert(size_t i, size_t n, char c)|\\
+\mintinline{C++}|std::string &insert(size_t i, size_t n, char c)|\\
 вставить \verb|n| одинаковых символов, равных \verb|с| на позицию \verb|pos|.
 
-\verb|std::string &insert(size_t i, const std::string &s)|\\
-\verb|std::string &insert(size_t i, const &s)|\\
+\mintinline{C++}|std::string &insert(size_t i, const std::string &s)|\\
+\mintinline{C++}|std::string &insert(size_t i, const &s)|\\
 Вставить строку \verb|s| начиная с позиции \verb|i|.
 
 \paragraph{Удаление}
 
-\verb|std::string &erase(size_type index = 0, size_type count = npos)|
+\mintinline{C++}|std::string &erase(size_type index = 0, size_type count = npos)|
 Удаляет из строки \verb|count| символов начиная с позиции \verb|index|
 включительно. Если \verb|index + count| больше размера строки, то
 удаляется вся оставшаяся строка. Возвращает ссылку на себя.
@@ -771,27 +771,27 @@ c = s1[0]; // c = 'a'
 
 \paragraph{Замена}
 
-\verb|std::string &replace(size_t pos, size_t count, const std::string &s)|\\
-\verb|std::string &replace(size_t pos, size_t count, const char *s)|\\
+\mintinline{C++}|std::string &replace(size_t pos, size_t count, const std::string &s)|\\
+\mintinline{C++}|std::string &replace(size_t pos, size_t count, const char *s)|\\
 Заменяет символы в диапазон \verb|[pos, pos + count]| символами строки \verb|s|.
 
 \subsection{Взятие подстроки}
-\verb|std::string substr(size_t pos, size_t count = npos)|\\
+\mintinline{C++}|std::string substr(size_t pos, size_t count = npos)|\\
 Возвращает подстроку длины \verb|count| данной строки начиная с символа с индексом \verb|pos| или до конца строки,
 если \verb|pos + count| больше размера строки.
 
 \subsection{Поиск}
-\verb|size_t find(const char* str, size_t pos = 0)|\\
-\verb|size_t find(const std::string &str, size_t pos = 0)|\\
+\mintinline{C++}|size_t find(const char* str, size_t pos = 0)|\\
+\mintinline{C++}|size_t find(const std::string &str, size_t pos = 0)|\\
 Ищет в данной строке начиная с позиции \verb|pos| подстроку, \verb|str|.
 Возвращает позцию первого вхождения, если строка найдена и \verb|npos|, если не найдена.
 
-\verb|size_t find(const char* s, size_t pos, size_t n)|\\
+\mintinline{C++}|size_t find(const char* s, size_t pos, size_t n)|\\
 Ищет в данной строке начиная с позиции \verb|pos| подстроку, равную первым \verb|n| символам строки \verb|str|.
 Возвращает позцию первого вхождения, если строка найдена и \verb|npos|, если не найдена.
 
 \subsection{Получение указателя на массив символов}
-\verb|const char *c_str()|\\
+\mintinline{C++}|const char *c_str()|\\
 Возвращает указатель на содержимое \verb|std::string|. Возвращаемое значение можно использовать в функциях,
 которые должны получать на вход C-строку. Поскольку 
 
