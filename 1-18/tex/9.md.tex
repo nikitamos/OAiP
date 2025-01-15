@@ -17,10 +17,17 @@
 Литералы - непосредственные значения определенного типа, встроенные в
 программный код.
 
-Литералы могут иметь различный тип: - целый; - вещественный; -
-логический; - типа указателя (\texttt{nullptr}); - символьный; -
-строковый; - (\emph{необязательно}) пользовательского типа (при
-соответствующем переопределенном операторе в пользовательском типе).
+Литералы могут иметь различный тип:
+\begin{enumerate}
+  \item целый;
+  \item вещественный;
+  \item логический;
+  \item символьный;
+  \item типа указателя (\minline{nullptr});
+  \item строковый;
+  \item (\emph{необязательно}) пользовательского типа (при
+    соответствующем переопределенном операторе в пользовательском типе).
+\end{enumerate}
 
 \begin{tiny}
   \begin{longtable}[]{@{}
@@ -64,7 +71,7 @@
     \texttt{wchar\_t}\par \texttt{u} - \texttt{char16\_t}\par \texttt{U} -
     \texttt{char32\_t}\par типы \texttt{char*\_t} хранят символ Unicode в
     кодировке UTF-* \par разрешены escape-последовательности &
-    \texttt{\textquotesingle{}a\textquotesingle{}}\par \texttt{\textquotesingle{}\textbackslash{}n\textquotesingle{}}\par \texttt{u\textquotesingle{}猫\textquotesingle{}}\par \texttt{u8\textquotesingle{}W\textquotesingle{}}\par \texttt{L\textquotesingle{}β\textquotesingle{}}\par \texttt{U\textquotesingle{}🍌\textquotesingle{}}\par \\
+    \texttt{\textquotesingle{}a\textquotesingle{}}\par \texttt{\textquotesingle{}\textbackslash{}n\textquotesingle{}}\par \texttt{u\textquotesingle{}=\textquotesingle{}}\par \texttt{u8\textquotesingle{}W\textquotesingle{}}\par \texttt{L\textquotesingle{}ъ\textquotesingle{}}\par \texttt{U\textquotesingle{}*\textquotesingle{}}\par \\
     строковый & префиксы аналогичны символьным литералам, но обозначают тип
     символов строки\par суффикс \texttt{s} используется для создания литерала
     объекта \texttt{std::*string} (\texttt{std::string},
