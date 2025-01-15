@@ -5,6 +5,6 @@ then
 else
   # Костыль, чтобы latex нашел картинки, подключаемые из md
   echo 'Creating symlink `res`'
-  ln -s 1-18/markdown/res res
+  ln -s 1-18/res res
 fi
 latexmk

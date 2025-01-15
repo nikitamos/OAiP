@@ -1,8 +1,6 @@
-\section{Символьные и Строковые константы, отличие от числовых
-констант}\label{ux441ux438ux43cux432ux43eux43bux44cux43dux44bux435-ux438-ux441ux442ux440ux43eux43aux43eux432ux44bux435-ux43aux43eux43dux441ux442ux430ux43dux442ux44b-ux43eux442ux43bux438ux447ux438ux435-ux43eux442-ux447ux438ux441ux43bux43eux432ux44bux445-ux43aux43eux43dux441ux442ux430ux43dux442}
+\section{Символьные и Строковые константы, отличие от числовых констант}
 
-\subsection{Символьные и строковые
-константы}\label{ux441ux438ux43cux432ux43eux43bux44cux43dux44bux435-ux438-ux441ux442ux440ux43eux43aux43eux432ux44bux435-ux43aux43eux43dux441ux442ux430ux43dux442ux44b}
+\subsection{Символьные и строковые константы}
 
 \textbf{Константа} - это ограниченная последовательность символов
 алфавита языка, представляющая собой изображение фиксированного
@@ -16,6 +14,7 @@
 графического представления. При этом код управляющего символа начинается
 с символа \texttt{\textbackslash{}}(обратный слеш).
 
+\begin{scriptsize}
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0549}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.9066}}
@@ -46,6 +45,7 @@
 \texttt{char32\_t} & UTF-32, 32 бита &
 \texttt{U\textquotesingle{}あ\textquotesingle{}} \\
 \end{longtable}
+\end{scriptsize}
 
 Строковые литералы представляют собой последовательность символов,
 заключенные в кавычки. В памяти строки представляют собой
@@ -54,22 +54,17 @@
 нулевой символ называется также \textbf{null-терминатором}, и является
 маркером конца строки.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\AttributeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{example\_string }\OperatorTok{=} \StringTok{"I am a string"}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
-
+\begin{verbatim}
+  const char *example_string = "I am a string";
+\end{verbatim}
 Вообще говоря строки можно составить из символов любого типа:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\AttributeTok{const} \DataTypeTok{wchar\_t} \OperatorTok{*}\NormalTok{wide\_string }\OperatorTok{=} \StringTok{L"Я транслятор"}\OperatorTok{;}
-\AttributeTok{const} \DataTypeTok{char8\_t} \OperatorTok{*}\NormalTok{utf8\_string }\OperatorTok{=} \StringTok{u8"Judgement!"}\OperatorTok{;}
-\AttributeTok{const} \DataTypeTok{char16\_t} \OperatorTok{*}\NormalTok{utf16\_string }\OperatorTok{=} \StringTok{u"🐂"}\OperatorTok{;}
-\AttributeTok{const} \DataTypeTok{char32\_t} \OperatorTok{*}\NormalTok{utf32\_string }\OperatorTok{=} \StringTok{U"Съешь же ещё этих мягких французских булок, да выпей чаю."}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+const wchar_t *wide_string = L"Я транслятор";
+const char8_t *utf8_string = u8"Judgement!";
+const char16_t *utf16_string = u"🐂";
+const char32_t *utf32_string = U"Съешь же ещё этих мягких французских булок, да выпей чаю.";
+\end{verbatim}
 
 Однако они всегда будут оканчиваться символом с кодом 0.
 
@@ -84,12 +79,10 @@
 
 Символы и строки также различны:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DataTypeTok{char}\NormalTok{ a\_char }\OperatorTok{=} \CharTok{\textquotesingle{}A\textquotesingle{}}\OperatorTok{;}
-\AttributeTok{const} \DataTypeTok{char} \OperatorTok{*}\NormalTok{a\_string }\OperatorTok{=} \StringTok{"A"}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+char a_char = 'A';
+const char *a_string = "A";
+\end{verbatim}
 
 Помимо разницы в синтаксисе (разные кавычки), строка \texttt{a\_string}
 состоит из двух символов -
