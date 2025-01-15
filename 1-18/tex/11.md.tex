@@ -1,0 +1,89 @@
+\section{Операнды в языках
+программирования}\label{ux43eux43fux435ux440ux430ux43dux434ux44b-ux432-ux44fux437ux44bux43aux430ux445-ux43fux440ux43eux433ux440ux430ux43cux43cux438ux440ux43eux432ux430ux43dux438ux44f}
+
+Комбинация \textbf{знаков операций} и \textbf{операндов}, результатом
+которой является определенное значение, называется \textbf{выражением}.
+Знаки операций определяют действия, которые должны быть выполнены над
+операндами. Каждый операнд в выражении может быть выражением. Значение
+выражения зависит от расположения знаков операций и круглых скобок в
+выражении, а также от приоритета выполнения операций.
+
+\textbf{Операнд} - любой объект, над которым проводится операция.
+
+Например, операндом может быть - переменная или константа - литерал -
+выражение вызова функции - выражение выбора элемента - любое другое
+выражение, сформированное комбинацией операндов, знаков операций и
+круглых скобок.
+
+В языках высокого уровня зачастую за каждым операндом закреплен
+определенный тип, будь то целочисленный, вещественный или какой-либо
+другой.
+
+Стоит отметить, что некоторые конструкции, даже не являясь выражениями в
+привычном смысле (\emph{математические выражения}), тем не менее также
+состоят из операндов:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Оператор ветвления - \texttt{if}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if} \OperatorTok{(}\NormalTok{ \_условие\_ }\OperatorTok{)} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  \emph{условие} - операнд логического типа.
+\item
+  Оператор выбора - \texttt{switch}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{switch} \OperatorTok{(}\NormalTok{ \_значение\_ }\OperatorTok{)} \OperatorTok{\{}
+  \ControlFlowTok{case}\NormalTok{ \_вариант}\DecValTok{1}\OperatorTok{\_:}
+    \OperatorTok{...}
+    \ControlFlowTok{break}\OperatorTok{;}
+  \ControlFlowTok{case}\NormalTok{ \_вариант}\DecValTok{2}\OperatorTok{\_:}
+    \OperatorTok{...}
+    \ControlFlowTok{break}\OperatorTok{;}
+  \OperatorTok{...}
+  \ControlFlowTok{default}\OperatorTok{:}
+    \OperatorTok{...}
+    \ControlFlowTok{break}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  \emph{значение} - операнд целого типа.
+\item
+  Оператор цикла с параметром - \texttt{for}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for} \OperatorTok{(}\NormalTok{\_инициализация\_}\OperatorTok{;}\NormalTok{ \_условие\_}\OperatorTok{;}\NormalTok{ \_модификация\_}\OperatorTok{)} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+  \emph{инициализация} - операнд, предназначенный для объявления
+  переменных, используемых в цикле.
+
+  \emph{условие} - операнд логического типа, определяет условие
+  продолжения цикла.
+
+  \emph{модификация} - операнд, выполняющийся после каждой итерации
+  цикла.
+\item
+  Оператор циклов с пред- и постусловием - \texttt{while} и
+  \texttt{do-while}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{while} \OperatorTok{(}\NormalTok{ \_условие\_ }\OperatorTok{)} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}}
+
+\ControlFlowTok{do} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}} \ControlFlowTok{while} \OperatorTok{(}\NormalTok{ \_условие\_ }\OperatorTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+  \emph{условие} - операнд логического типа.
+\end{enumerate}
