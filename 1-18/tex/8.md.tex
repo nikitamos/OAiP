@@ -80,7 +80,6 @@ const char *szOwner = "This is the owner"; // _z_ero-terminated _s_tring
 \item
   Следует давать переменным и типам разборчивые имена, конкретные для
   предметной области.
-\end{enumerate}
 
 \begin{quote}
 Например, создавая очередь покупателей не следует называть переменную
@@ -88,22 +87,19 @@ const char *szOwner = "This is the owner"; // _z_ero-terminated _s_tring
 \minline{customer\_queue}.
 \end{quote}
 
-\begin{enumerate}
 \item
   Следует избегать излишних аббревиатур.
-\end{enumerate}
 
 \begin{quote}
 Например, вместо \minline{class\ UQT\ \{\ ...\ \};} следует использовать
 \minline{UnitQuadTree\ \{\ ...\ \};}.
 \end{quote}
 
-\begin{enumerate}
 \item
   Не стоит называть свои типы и переменные также, как называются типы в
   стандартной библиотеке.
+  
+  \begin{quote}
+    Это чревато коллизией имен и сложными в отладке ошибками.
+  \end{quote}
 \end{enumerate}
-
-\begin{quote}
-Это чревато коллизией имен и сложными в отладке ошибками.
-\end{quote}
