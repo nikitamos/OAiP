@@ -737,41 +737,54 @@ c = s1[0]; // c = 'a'
 Возвращает \verb|true|, если строка пуста, \verb|false| - если непуста.
 
 \subsection{Модификация строки}
-\paragraph{Добавление}
+\subsection*{Добавление}
 
+\noindent
 \mintinline{C++}|void push_back(char c)|\\
 Добавляет в конец строки символ c, вызывается с одним параметром.
 
+\vspace{0.6cm}
 Все методы, описанные ниже в этом разделе возвращают ссылку на объект строки, на
 котором вызван метод.
 
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|std::string &append(size_t n, char c)|\\
 Добавляет в конец строки \verb|n| одинаковых символов, равных \verb|с|.
 
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|std::string &append(const std::string &s)|\\
 \mintinline{C++}|std::string &append(const char* s)|\\
-добавляет в конец строки содержимое строки s.
+Добавляет в конец строки содержимое строки s.
 
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|std::string &append(const std::string s, size_t pos, size_t count)|\\
 Добавляет в конец строки символы строки \verb|s| начиная с символа с индексом \verb|pos| количеством \verb|count|.
 
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|std::string &insert(size_t i, size_t n, char c)|\\
-вставить \verb|n| одинаковых символов, равных \verb|с| на позицию \verb|pos|.
+Вставить \verb|n| одинаковых символов, равных \verb|с| на позицию \verb|pos|.
 
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|std::string &insert(size_t i, const std::string &s)|\\
 \mintinline{C++}|std::string &insert(size_t i, const &s)|\\
 Вставить строку \verb|s| начиная с позиции \verb|i|.
 
-\paragraph{Удаление}
-
+\subsection*{Удаление}
+\noindent
 \mintinline{C++}|std::string &erase(size_type index = 0, size_type count = npos)|
 Удаляет из строки \verb|count| символов начиная с позиции \verb|index|
 включительно. Если \verb|index + count| больше размера строки, то
 удаляется вся оставшаяся строка. Возвращает ссылку на себя.
 {\small \verb|npos| --- наибольшее возможное значение \verb|size_t|.}
 
-\paragraph{Замена}
-
+\subsection*{Замена}
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|std::string &replace(size_t pos, size_t count, const std::string &s)|\\
 \mintinline{C++}|std::string &replace(size_t pos, size_t count, const char *s)|\\
 Заменяет символы в диапазон \verb|[pos, pos + count]| символами строки \verb|s|.
@@ -782,11 +795,15 @@ c = s1[0]; // c = 'a'
 если \verb|pos + count| больше размера строки.
 
 \subsection{Поиск}
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|size_t find(const char* str, size_t pos = 0)|\\
 \mintinline{C++}|size_t find(const std::string &str, size_t pos = 0)|\\
 Ищет в данной строке начиная с позиции \verb|pos| подстроку, \verb|str|.
 Возвращает позцию первого вхождения, если строка найдена и \verb|npos|, если не найдена.
 
+\vspace{0.6cm}
+\noindent
 \mintinline{C++}|size_t find(const char* s, size_t pos, size_t n)|\\
 Ищет в данной строке начиная с позиции \verb|pos| подстроку, равную первым \verb|n| символам строки \verb|str|.
 Возвращает позцию первого вхождения, если строка найдена и \verb|npos|, если не найдена.
@@ -1203,7 +1220,7 @@ struct ИмяСтруктуры {
 
 Обратите внимение, что только битовые поля могут иметь только целочисленные типы.
 {\small Желательно, чтобы они были \verb|unsigned|. Хотя использование обычных (знаковых)
-чисел не запрщается, оно, вообще говоря, может привести к неожиданным результатам (отрицательные числа) и даже к UB\textsuperscript{проверить?},
+чисел не запрщается, оно, вообще говоря, может привести к неожиданным результатам (отрицательные числа),
 потому что способ представления отрицательных чисел до C++20 не был стандартизирован.
 С C++20 все компиляторы обязаны использовать дополнительный код.}
 
@@ -1302,7 +1319,7 @@ int main() {
 которые явно не объявлены \verb|static| или \verb|extern|.
 
 \section{Локальные и глобальные переменные}
-\paragraph{Локальные переменные} объявляются внутри тела функции или блока и доступны только изнутри
+\subsection{Локальные переменные} объявляются внутри тела функции или блока и доступны только изнутри
 функции или блока, в котором объвлены. Локальные переменные могут иметь \textit{любое} время хранения.
 \begin{minted}{C++}
 // Два файла компилировать вместе
@@ -1368,7 +1385,8 @@ int main() {
 }
 \end{minted}
 
-\paragraph{Глобальные переменные} объявляются вне тела функции и доступны из любых функций.
+\subsection{Глобальные переменные}
+Глобальные переменные объявляются вне тела функции и доступны из любых функций.
 Глобальные пременные имеют статическое или потоковое время хранения и могут иметь как внешнее,
 так и внутренне связывание. Все глобальные переменные хранятся в статической области памяти.
 
