@@ -294,7 +294,7 @@ long FibLoop(long n) {
 Рекурсия используется во многих алгоритмах, например в сортировках Quicksort и Mergesort,
 в обходе графов (поиск в глубину).
 
-Рекурсивные алгоритмы из-за накладных раходов на вызов функции обычно показывают худшую
+Рекурсивные алгоритмы из-за накладных расходов на вызов функции обычно показывают худшую
 производительность чем циклические, несмотря на одинаковую
 асимптотику. Кроме того, для работы рекурсивных алгоритмов необходимо поддерживать стек вызовов.
 Но размер стека ограничен, что накладывает ограничение на максимальную глубину рекурсии.
@@ -473,7 +473,8 @@ Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 (в языке C++ для работы с C-строками --- \verb|<cstring>|).
 
 \subsection{Длина строки}
-\mintinline{C++}|size_t strlen(const char *s)| - определяет длину строки \verb|s| без учёта нуль-символа.
+\mintinline{C++}|size_t strlen(const char *s)|\\
+определяет длину строки \verb|s| без учёта нуль-символа.
 
 \subsection{Копирование строк}
 
@@ -490,7 +491,7 @@ Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 \mintinline{C++}|char* strcat(char *dst, const char *src)| - объединяет строку \verb|src| со строкой \verb|dst|.
 Результат сохраняется в \verb|dst|. 
 
-\mintinline{C++}|char* strncat(char* dest, const char* src, size_t count);| - объединяет \verb|count|
+\mintinline{C++}|char* strncat(char* dest, const char* src, size_t count)| - объединяет \verb|count|
 символов строки \verb|src| со строкой \verb|dest|. Результат сохраняется в \verb|dest|.
 Возвращает \verb|dest|.
 
@@ -744,14 +745,14 @@ c = s1[0]; // c = 'a'
 Все методы, описанные ниже в этом разделе возвращают ссылку на объект строки, на
 котором вызван метод.
 
-\mintinline{C++}|std::string& append(size_t n, char c)|\\
+\mintinline{C++}|std::string &append(size_t n, char c)|\\
 Добавляет в конец строки \verb|n| одинаковых символов, равных \verb|с|.
 
-\mintinline{C++}|std::string& append(const std::string &s)|\\
-\mintinline{C++}|std::string& append(const char* s)|\\
+\mintinline{C++}|std::string &append(const std::string &s)|\\
+\mintinline{C++}|std::string &append(const char* s)|\\
 добавляет в конец строки содержимое строки s.
 
-\mintinline{C++}|std::string& append(const std::string s, size_t pos, size_t count)|\\
+\mintinline{C++}|std::string &append(const std::string s, size_t pos, size_t count)|\\
 Добавляет в конец строки символы строки \verb|s| начиная с символа с индексом \verb|pos| количеством \verb|count|.
 
 \mintinline{C++}|std::string &insert(size_t i, size_t n, char c)|\\
