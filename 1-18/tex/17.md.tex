@@ -1,0 +1,45 @@
+\section{Классификация бинарных
+операций}\label{ux43aux43bux430ux441ux441ux438ux444ux438ux43aux430ux446ux438ux44f-ux431ux438ux43dux430ux440ux43dux44bux445-ux43eux43fux435ux440ux430ux446ux438ux439}
+
+\textbf{Бинарная операция} - операция над двумя операндами и
+возвращающая один результат.
+
+К бинарным операциям в С++ относятся:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Присваивания
+  (\texttt{=\ +=\ -=\ *=\ /=\ \%=\ \&=\ \textbar{}=\ \^{}=\ \textgreater{}\textgreater{}=\ \textless{}\textless{}=});
+\item
+  Арифметические, за исключением унарных \texttt{+}, \texttt{-}
+  (\texttt{+\ -\ *\ /\ \%});
+\item
+  Побитовые, за исключением побитовой инверсии
+  \texttt{\textasciitilde{}}
+  (\texttt{\&\ \textbar{}\ \^{}\ \textless{}\textless{}\ \textgreater{}\textgreater{}});
+\item
+  Логические, за исключением унарного логического отрицания \texttt{!}
+  (\texttt{\&\&\ \textbar{}\textbar{}});
+\item
+  Сравнения
+  (\texttt{==\ !=\ \textless{}\ \textgreater{}\ \textless{}=\ \textgreater{}=\ \textless{}=\textgreater{}});
+\item
+  Обращения к члену ( \texttt{-\textgreater{}\ .});
+\item
+  Другие особые операторы:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Оператор разрешения области видимости (\texttt{::})
+  \item
+    Оператор \texttt{,} (запятая)
+  \item
+    Встроенный (неперегруженный) оператор \texttt{{[}{]}} (в С++23 этот
+    оператор может иметь любую -арность, как и оператор вызова функции,
+    но только в перегруженном виде. Встроенный оператор
+    \texttt{E1{[}E2{]}} эквивалентен \texttt{*(E1\ +\ E2)})
+  \end{itemize}
+\end{enumerate}

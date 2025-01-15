@@ -1,0 +1,111 @@
+\section{Идентификаторы в языке С++, правила наименования}
+
+\subsection{Идентификаторы}
+
+\textbf{Идентификатор} - это произвольно длинная последовательность
+цифр, знаков нижнего подчеркивания букв латиницы верхнего и нижнего
+регистров (и большинства символов Unicode, если присутствует поддержка
+платформы), обозначающая имя какой-либо программной сущности (напр.
+переменной, типа, метки и т. д.).
+
+Пользовательские идентификаторы \textbf{не могут} начинаться с
+\textbf{цифры} и содержать внутри себя \textbf{пробельные символы}.
+Также пользовательский идентификатор не может совпадать с каким-либо
+\textbf{ключевым словом} языка С++. Помимо этого не рекомендуется
+создавать идентификаторы, начинающиеся с символа подчеркивания,
+поскольку они могут являться внутренней деталью реализации стандартной
+библиотеки С++ или определяемым компилятором макросом. Аналогично,
+зарезервированными считаются идентификаторы с 2 нижними подчеркиваниями.
+
+Несмотря на то, что стандарт \emph{не накладывает ограничений на длину}
+идентификатора, она \emph{все равно может быть ограничена} компилятором
+и/или компоновщиком. Например, \textbf{MSVC} и \textbf{Intel C++}
+поддерживают идентификаторы длиной лишь в \textbf{2048} символов, в то
+время как \textbf{GCC} никаких ограничений не накладывает.
+
+\subsection{Правила названия}
+
+Для увеличения читаемости кода, существуют различные соглашения о
+названиях переменных типов и других программных сущностей. Вот,
+например, правила, рекомендованные по стилю Google (google's codestyle):
+
+\begin{small}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1750}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1583}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Сущность
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Стиль
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Пример
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Локальная переменная & \textbf{snake\_case} &
+\texttt{int\ bus\_queue\_length\ =\ 12;} \\
+Тип (напр. структура) & \textbf{UpperCamelCase} &
+\texttt{struct\ Unit\ \{\};} \\
+Функция & \textbf{UpperCamelCase} &
+\texttt{int\ GetMagicNumber()\ \{\ return\ 69;\ \}} \\
+Параметр & \textbf{snake\_case} &
+\texttt{int\ GetAnswerToTheUniverse(int\ years\_passed)\ \{\ return\ 42\ +\ 0\ *\ years\_passed;\ \}} \\
+С макрос & \textbf{SCREAMING\_CASE} &
+\texttt{\#define\ MY\_MACRO\_THAT\_SCARES\_SMALL\_CHILDREN\_AND\_ADULTS\_ALIKE} \\
+Константа & k\textbf{UpperCamelCase} &
+\texttt{const\ bool\ kIsAndroid\ =\ true;} \\
+Поле класса & \textbf{snake\_case}\_ &
+\texttt{class\ ProductData\ \{\ private:\ int\ number\_of\_customers\_;\ \};} \\
+Член перечисления & k\textbf{UpperCamelCase} &
+\texttt{enum\ Status\ \{\ kOk\ =\ 0,\ kBadAlloc,\ kRuntimeError\ \};} \\
+Пространство имен & \textbf{snake\_case} &
+\texttt{namespace\ foo\_bar\ \{\ ...\ \}} \\
+\end{longtable}
+\end{small}
+
+Существуют и другие подходы, например \emph{венгерская нотация}, по
+которой различные свойства объекта (например, типы переменных)
+кодировались в названии этого объекта. Пример:
+
+\begin{verbatim}
+bool bBusy = false; // _b_oolean
+const char *szOwner = "This is the owner"; // _z_ero-terminated _s_tring
+\end{verbatim}
+
+Также стоит придерживаться более общих правил:
+
+\begin{enumerate}
+\item
+  Следует давать переменным и типам разборчивые имена, конкретные для
+  предметной области.
+\end{enumerate}
+
+\begin{quote}
+Например, создавая очередь покупателей не следует называть переменную
+\texttt{queue}, вместо этого можно использовать более конкретное
+\texttt{customer\_queue}.
+\end{quote}
+
+\begin{enumerate}
+\item
+  Следует избегать излишних аббревиатур.
+\end{enumerate}
+
+\begin{quote}
+Например, вместо \texttt{class\ UQT\ \{\ ...\ \};} следует использовать
+\texttt{UnitQuadTree\ \{\ ...\ \};}.
+\end{quote}
+
+\begin{enumerate}
+\item
+  Не стоит называть свои типы и переменные также, как называются типы в
+  стандартной библиотеке.
+\end{enumerate}
+
+\begin{quote}
+Это чревато коллизией имен и сложными в отладке ошибками.
+\end{quote}
