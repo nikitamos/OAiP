@@ -3,13 +3,13 @@
 \setmainlanguage{russian}
 
 \usepackage{fontspec}
-\defaultfontfeatures{Renderer=Basic,Ligatures={TeX}}
+% \defaultfontfeatures{Renderer=Basic,Ligatures={TeX}}
 \setmainfont{CMU Serif}
 \setsansfont{CMU Sans Serif}
 \setmonofont{CMU Typewriter Text}
 \usepackage[utf8]{inputenc}
 \usepackage{indentfirst}
-\usepackage{hyperref}
+\usepackage[pdfversion=1.7]{hyperref}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{listing}
@@ -23,36 +23,25 @@
 \usepackage{array,calc}
 \usepackage{booktabs}
 \usepackage{color}
-\usepackage{fancyvrb}
 \usepackage{tabularray}
-\newcommand\tab{\par\hspace{2em}}
-% \DefineShortVerb[commandchars=\\\{\}]{\|}
-% \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% % Add ',fontsize=\small' for more characters per line
-% \newenvironment{Shaded}{}{}
-% \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
-% \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
-% \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
-% \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
-% \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
-% \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
-% \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
-% \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
-% \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
-% \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
-% \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
-% \newcommand{\RegionMarkerTok}[1]{{#1}}
-% \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
-% \newcommand{\NormalTok}[1]{{#1}}
-
-\directlua{pdf.setminorversion(7)}
+\usepackage{minted}
 
 \newlist{enuminl}{enumerate*}{1}
 \setlist[enuminl]{label=(\arabic*)}
 \newcommand{\itembf}[1]{\item \textbf{#1}}
 
+\newcommand\tab{\par\hspace{2em}}
+\newcommand{\vmint}[1]{\mint{C++}|#1|}
+
+\author{
+  Забережный Тимофей \\
+  Багаев     Леонид  \\
+  Москалёв   Никита  \\
+  Буховец    Устин   \\
+}
+\title{Ответы по ОАиПу. Семестр 1}
+
 \begin{document}
-\title{Ответы по ОАиПу}
 \clearpage\maketitle
 \thispagestyle{empty}
 
@@ -61,11 +50,16 @@
 \newpage
 
 \input{1-18.tex}
+
+\addcontentsline{toc}{section}{Вопросы 19-36}
+\phantomsection
 \includepdf[pages=-]{19-36.pdf}
 
 \setcounter{section}{36}
 \include{37-54.tex}
 
+\addcontentsline{toc}{section}{Вопросы 55-62}
+\phantomsection
 \includepdf[pages=-]{55-62.pdf}
 
 \end{document}

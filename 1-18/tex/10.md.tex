@@ -53,20 +53,18 @@
 друг за другом), ограниченные символом \texttt{\textbackslash{}0}. Этот
 нулевой символ называется также \textbf{null-терминатором}, и является
 маркером конца строки.
-
-\begin{verbatim}
+\begin{minted}{C++}
   const char *example_string = "I am a string";
-\end{verbatim}
+\end{minted}
 Вообще говоря строки можно составить из символов любого типа:
-
-\begin{verbatim}
+\begin{minted}{C++}
 const wchar_t *wide_string = L"Я транслятор";
 const char8_t *utf8_string = u8"Judgement!";
 const char16_t *utf16_string = u"\";
 const char32_t *utf32_string = U"Съешь же ещё этих мягких"
                                U"французских булок, "
                                U"да выпей чаю.";
-\end{verbatim}
+\end{minted}
 
 Однако они всегда будут оканчиваться символом с кодом 0.
 
@@ -80,11 +78,10 @@ const char32_t *utf32_string = U"Съешь же ещё этих мягких"
 обозначают печатный или управляющий знак.
 
 Символы и строки также различны:
-
-\begin{verbatim}
+\begin{minted}{C++}
 char a_char = 'A';
 const char *a_string = "A";
-\end{verbatim}
+\end{minted}
 
 Помимо разницы в синтаксисе (разные кавычки), строка \texttt{a\_string}
 состоит из двух символов -
