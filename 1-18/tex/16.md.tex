@@ -10,23 +10,21 @@
 \def\labelenumi{\arabic{enumi})}
 \item
   Унарные `плюс' и `минус'
-
-\begin{Verbatim}
+\begin{minted}{C++}
   +a;
   -a;
-\end{Verbatim}
+\end{minted}
 
   Унарный плюс не изменяет выражения, унарный минус меняет знак на
   противоположный.
 \item
   Префиксный/постфиксный инкремент и декремент
-
-\begin{Verbatim}
+\begin{minted}{C++}
   ++a;
   a++;
   --a;
   a--;
-\end{Verbatim}
+\end{minted}
 
   Прибавляет (инкремент) или отнимает (декремент) \(1\). Меняет операнд.
   В префиксной форме, сначала прибавляет/отнимает, потом возвращает
@@ -34,31 +32,28 @@
   исходное значение переменной, потом прибавляет/отнимает.
 \item
   Отрицание (логическое НЕ)
-
-\begin{Verbatim}
+\begin{minted}{C++}
   !a;
-\end{Verbatim}
+\end{minted}
 
   Заменяет \texttt{true} на \texttt{false}, а \texttt{false} - на
   \texttt{true} и возвращает \textbf{логическое значение} - результат
   такой замены. Сам операнд не изменяется.
 \item
   Побитовая инверсия
-
-\begin{Verbatim}
+\begin{minted}{C++}
   ~a;
-\end{Verbatim}
+\end{minted}
 
   Заменяет \(0\) в двоичной записи числа на \(1\), а \(1\) - на \(0\) и
   возвращает \textbf{число} - результат такой замены. Сам операнд не
   изменяется.
 \item
   Взятие адреса и косвенная адресация
-
-\begin{Verbatim}
+\begin{minted}{C++}
   int *address = &a;
   *a = 42;
-\end{Verbatim}
+\end{minted}
 
   Взятие адреса применяется к переменной и возвращает адрес первой
   ячейки памяти, где хранится эта переменная, в виде указателя.
@@ -66,10 +61,9 @@
   хранящемуся в указателе.
 \item
   Оператор \texttt{sizeof()} - получение размера типа
-
-\begin{Verbatim}
+\begin{minted}{C++}
   sizeof(a)
-\end{Verbatim}
+\end{minted}
   Возвращает размер типа(типа выражения) в байтах. Стандарт допускает,
   что байт может не быть равен 8 бит, поэтому точнее говорить, что
   \texttt{sizeof} возвращает размер типа в адресуемых ячейках памяти.
@@ -80,21 +74,20 @@
 \setcounter{enumi}{6}
 \item
   Оператор приведения типов в стиле С
-  \begin{Verbatim}
+\begin{minted}{C++}
     int a = 42;
     double c_style = (double)a;
-  \end{Verbatim}
+\end{minted}
 \item
   выделение и освобождение памяти - \texttt{new} и \texttt{delete}
-
-\begin{Verbatim}
+\begin{minted}{C++}
   int *heap_allocated = new int;
     *heap_allocated = 42;
 
     //...
 
     delete heap_allocated;
-\end{Verbatim}
+\end{minted}
 \end{enumerate}
 
 \ldots и хватит\ldots{}

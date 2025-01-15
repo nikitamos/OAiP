@@ -85,10 +85,9 @@
 \item
   Макросы - подставляются препроцессором. Не рекомендуются к
   использованию.
-
-\begin{verbatim}
+\begin{minted}{C++}
   #define ANSWER_TO_THE_UNIVERSE 42
-\end{verbatim}
+\end{minted}
 \item
   \texttt{const} - основной способ показать неизменяемость в С++.
 
@@ -110,7 +109,7 @@
   данное свойство полезно только при передаче \emph{по ссылке} или
   \emph{по указателю}: при передаче по значению все аргументы функции
   копируются и функция в любом случае не может изменить значение извне:
-  \begin{verbatim}
+\begin{minted}{C++}
     void ByValue(int i) { i = 42; }
     void ByReference(int &i) { i = 69; }
     void ByPointer(int *i) { *i = 34; }
@@ -128,7 +127,7 @@
 
       return 0;
     }
-  \end{verbatim}
+\end{minted}
 \item
   Ключевое слово \texttt{constexpr} появилось с \textbf{С++11} и
   позволяет показать \emph{константу времени компиляции}, т.е. значения,
@@ -138,8 +137,7 @@
 \item
   Члены перечисления также являются символическими константами связанным
   с ними числовым значениям:
-
-\begin{verbatim}
+\begin{minted}{C++}
   enum MyEnum {
       kZero = 0,
       kOne,
@@ -149,5 +147,5 @@
     };
     // ...
     std::cout << kFive; // 5
-\end{verbatim}
+\end{minted}
 \end{enumerate}

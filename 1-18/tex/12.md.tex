@@ -128,18 +128,16 @@ API - 32 \\
 \end{quote}
 
 Типы в \textbf{С++} формируют иерархию по размеру:
-
-\begin{Verbatim}
+\begin{minted}{C++}
   1 == sizeof(char) ≤ sizeof(short) ≤ sizeof(int) ≤ sizeof(long) ≤ sizeof(long long)
-\end{Verbatim}
+\end{minted}
 
 Однако стандарт гарантирует лишь минимальное количество бит типов. В
 частности возможная абсурдная ситуация, когда на платформе один байт*
 занимает 64 бит и
-
-\begin{Verbatim}
+\begin{minted}{C++}
   sizeof(char) == sizeof(short) == sizeof(int) == sizeof(long) == sizeof(long long) == 1
-\end{Verbatim}
+\end{minted}
 
 Количество бит, которое занимает тип \texttt{char} можно проверить
 макросом \texttt{CHAR\_BIT}; впрочем, практически все современные
