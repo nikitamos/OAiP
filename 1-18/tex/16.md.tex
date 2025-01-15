@@ -11,26 +11,22 @@
 \item
   Унарные `плюс' и `минус'
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\OperatorTok{+}\NormalTok{a}\OperatorTok{;}
-\OperatorTok{{-}}\NormalTok{a}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  +a;
+  -a;
+\end{Verbatim}
 
   Унарный плюс не изменяет выражения, унарный минус меняет знак на
   противоположный.
 \item
   Префиксный/постфиксный инкремент и декремент
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\OperatorTok{++}\NormalTok{a}\OperatorTok{;}
-\NormalTok{a}\OperatorTok{++;}
-\OperatorTok{{-}{-}}\NormalTok{a}\OperatorTok{;}
-\NormalTok{a}\OperatorTok{{-}{-};}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  ++a;
+  a++;
+  --a;
+  a--;
+\end{Verbatim}
 
   Прибавляет (инкремент) или отнимает (декремент) \(1\). Меняет операнд.
   В префиксной форме, сначала прибавляет/отнимает, потом возвращает
@@ -39,11 +35,9 @@
 \item
   Отрицание (логическое НЕ)
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\OperatorTok{!}\NormalTok{a}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  !a;
+\end{Verbatim}
 
   Заменяет \texttt{true} на \texttt{false}, а \texttt{false} - на
   \texttt{true} и возвращает \textbf{логическое значение} - результат
@@ -51,11 +45,9 @@
 \item
   Побитовая инверсия
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\OperatorTok{\textasciitilde{}}\NormalTok{a}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  ~a;
+\end{Verbatim}
 
   Заменяет \(0\) в двоичной записи числа на \(1\), а \(1\) - на \(0\) и
   возвращает \textbf{число} - результат такой замены. Сам операнд не
@@ -63,12 +55,10 @@
 \item
   Взятие адреса и косвенная адресация
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DataTypeTok{int} \OperatorTok{*}\NormalTok{address }\OperatorTok{=} \OperatorTok{\&}\NormalTok{a}\OperatorTok{;}
-\OperatorTok{*}\NormalTok{a }\OperatorTok{=} \DecValTok{42}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  int *address = &a;
+  *a = 42;
+\end{Verbatim}
 
   Взятие адреса применяется к переменной и возвращает адрес первой
   ячейки памяти, где хранится эта переменная, в виде указателя.
@@ -77,12 +67,9 @@
 \item
   Оператор \texttt{sizeof()} - получение размера типа
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{sizeof}\OperatorTok{(}\NormalTok{a}\OperatorTok{)}
-\end{Highlighting}
-\end{Shaded}
-
+\begin{Verbatim}
+  sizeof(a)
+\end{Verbatim}
   Возвращает размер типа(типа выражения) в байтах. Стандарт допускает,
   что байт может не быть равен 8 бит, поэтому точнее говорить, что
   \texttt{sizeof} возвращает размер типа в адресуемых ячейках памяти.
@@ -93,20 +80,21 @@
 \setcounter{enumi}{6}
 \item
   Оператор приведения типов в стиле С
-  \texttt{cpp\ \ \ \ \ int\ a\ =\ 42;\ \ \ \ \ double\ c\_style\ =\ (double)a;}
+  \begin{Verbatim}
+    int a = 42;
+    double c_style = (double)a;
+  \end{Verbatim}
 \item
   выделение и освобождение памяти - \texttt{new} и \texttt{delete}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DataTypeTok{int} \OperatorTok{*}\NormalTok{heap\_allocated }\OperatorTok{=} \KeywordTok{new} \DataTypeTok{int}\OperatorTok{;}
-\OperatorTok{*}\NormalTok{heap\_allocated }\OperatorTok{=} \DecValTok{42}\OperatorTok{;}
+\begin{Verbatim}
+  int *heap_allocated = new int;
+    *heap_allocated = 42;
 
-\CommentTok{//...}
+    //...
 
-\KeywordTok{delete}\NormalTok{ heap\_allocated}\OperatorTok{;}
-\end{Highlighting}
-\end{Shaded}
+    delete heap_allocated;
+\end{Verbatim}
 \end{enumerate}
 
 \ldots и хватит\ldots{}
