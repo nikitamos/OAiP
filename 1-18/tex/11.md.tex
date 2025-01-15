@@ -1,5 +1,4 @@
-\section{Операнды в языках
-программирования}\label{ux43eux43fux435ux440ux430ux43dux434ux44b-ux432-ux44fux437ux44bux43aux430ux445-ux43fux440ux43eux433ux440ux430ux43cux43cux438ux440ux43eux432ux430ux43dux438ux44f}
+\section{Операнды в языках программирования}
 
 Комбинация \textbf{знаков операций} и \textbf{операндов}, результатом
 которой является определенное значение, называется \textbf{выражением}.
@@ -28,42 +27,36 @@
 \item
   Оператор ветвления - \texttt{if}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if} \OperatorTok{(}\NormalTok{ \_условие\_ }\OperatorTok{)} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  if ( _условие_ ) { ... }
+\end{Verbatim}
 
   \emph{условие} - операнд логического типа.
 \item
   Оператор выбора - \texttt{switch}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{switch} \OperatorTok{(}\NormalTok{ \_значение\_ }\OperatorTok{)} \OperatorTok{\{}
-  \ControlFlowTok{case}\NormalTok{ \_вариант}\DecValTok{1}\OperatorTok{\_:}
-    \OperatorTok{...}
-    \ControlFlowTok{break}\OperatorTok{;}
-  \ControlFlowTok{case}\NormalTok{ \_вариант}\DecValTok{2}\OperatorTok{\_:}
-    \OperatorTok{...}
-    \ControlFlowTok{break}\OperatorTok{;}
-  \OperatorTok{...}
-  \ControlFlowTok{default}\OperatorTok{:}
-    \OperatorTok{...}
-    \ControlFlowTok{break}\OperatorTok{;}
-\OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  switch ( _значение_ ) {
+      case _вариант1_:
+        ...
+        break;
+      case _вариант2_:
+        ...
+        break;
+      ...
+      default:
+        ...
+        break;
+    }
+\end{Verbatim}
 
   \emph{значение} - операнд целого типа.
 \item
   Оператор цикла с параметром - \texttt{for}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for} \OperatorTok{(}\NormalTok{\_инициализация\_}\OperatorTok{;}\NormalTok{ \_условие\_}\OperatorTok{;}\NormalTok{ \_модификация\_}\OperatorTok{)} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}}
-\end{Highlighting}
-\end{Shaded}
+\begin{Verbatim}
+  for (_инициализация_; _условие_; _модификация_) { ... }
+\end{Verbatim}
 
   \emph{инициализация} - операнд, предназначенный для объявления
   переменных, используемых в цикле.
@@ -77,13 +70,11 @@
   Оператор циклов с пред- и постусловием - \texttt{while} и
   \texttt{do-while}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{while} \OperatorTok{(}\NormalTok{ \_условие\_ }\OperatorTok{)} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}}
+\begin{Verbatim}
+  while ( _условие_ ) { ... }
 
-\ControlFlowTok{do} \OperatorTok{\{} \OperatorTok{...} \OperatorTok{\}} \ControlFlowTok{while} \OperatorTok{(}\NormalTok{ \_условие\_ }\OperatorTok{);}
-\end{Highlighting}
-\end{Shaded}
+    do { ... } while ( _условие_ );
+\end{Verbatim}
 
   \emph{условие} - операнд логического типа.
 \end{enumerate}
