@@ -146,12 +146,15 @@ sizeof(char) == sizeof(short) == sizeof(int) == sizeof(long) == sizeof(long long
 
 \subsection{Вещественные типы}
 
-Стандарт \textbf{С++} определяет следующие типы с плавающей точкой: 1)
-\texttt{float} - вещественный тип одинарной точности. Обычно
-\textbf{IEEE 754} \emph{binary32}. 2) \texttt{double} - вещественный тип
-двойной точности. Обычно \textbf{IEEE 754} \emph{binary64}. 3)
-\texttt{long\ double} - вещественный тип повышенной точности.
+Стандарт \textbf{С++} определяет следующие типы с плавающей точкой
+\begin{enumerate}
+  \item \minline{float} - вещественный тип одинарной точности. Обычно
+    \textbf{IEEE 754} \emph{binary32}.
+  \item \minline{double} - вещественный тип
+    двойной точности. Обычно \textbf{IEEE 754} \emph{binary64}.
+  \item \minline{long double} - вещественный тип повышенной точности.
+    \begin{quote}
+    На разных платформах может быть типом четверной точности (**IEEE 754** *binary128*), 80-битным *x87-80 extended precision format* на *x86*, быть эквивалентным `double` или реализован каким-либо другим образом.
+    \end{quote}
+\end{enumerate}
 
-\begin{quote}
-На разных платформах может быть типом четверной точности (**IEEE 754** *binary128*), 80-битным *x87-80 extended precision format* на *x86*, быть эквивалентным `double` или реализован каким-либо другим образом.
-\end{quote}
