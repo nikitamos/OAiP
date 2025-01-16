@@ -410,7 +410,7 @@ Time Complexity --- $O(n^2)$ в худшем случае и $O(n)$, если м
   \item Массив $a[l\dots r]$ ($l$ --- индекс самого первого, $r$ --- самого последнего элемента)
   разбивается на два подмассива $a[l\dots q]$ и $a[q+1\dots r]$, таких что каждый элемент $a[l\dots q]$
   меньше или равен $a[q]$, который в свою очередь, не превышает любой элемент подмассива $a[q+1\dots r]$.
-  \textit{Индекс опорного элемента}$q$ вычисляется в ходе процедуры разбиения.
+  Индекс $q$ \textit{опорного элемента} вычисляется в ходе процедуры разбиения.
   \item Подмассивы $a[l\dots q]$ и $a[q+1\dots r]$ сортируются рекурсивно.
 \end{enumerate}
 
@@ -544,7 +544,7 @@ Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 \mintinline{C++}|int strcmp(const char* lhs, const char* rhs)|\\
 сравнивает строку \verb|lhs| со строкой \verb|rhs|.
 
-\mintinline{C++}|int strcmp(const char* lhs, const char* rhs size_t count)|\\
+\mintinline{C++}|int strncmp(const char* lhs, const char* rhs size_t count)|\\
 сравнивает первые \verb|count| символов (байт) строк \verb|lhs| и \verb|rhs|.
 
 \hspace{1cm}
@@ -748,6 +748,8 @@ c = s1[0]; // c = 'a'
 \verb|this|. Для вызова метода \verb|Method| на объекте \verb|object| используется
 оператор \verb|.|: \verb|object.Method()|.
 
+Ниже приведены сигнатуры некоторых методов класса \verb|std::string| по стандарту
+C++14 и новее.
 
 \subsection{Размер строки}
 \mintinline{C++}|size_t size()|\\
@@ -770,8 +772,8 @@ c = s1[0]; // c = 'a'
 \subsection*{Добавление}
 
 \noindent
-\mintinline{C++}|void push_back(char c)|\\
-Добавляет в конец строки символ c, вызывается с одним параметром.
+\mintinline{C++}|void push_back(char ch)|\\
+Добавляет в конец строки символ \verb|ch|.
 
 \vspace{0.6cm}
 Все методы, описанные ниже в этом разделе возвращают ссылку на объект строки, на
@@ -779,8 +781,8 @@ c = s1[0]; // c = 'a'
 
 \vspace{0.6cm}
 \noindent
-\mintinline{C++}|std::string &append(size_t n, char c)|\\
-Добавляет в конец строки \verb|n| одинаковых символов, равных \verb|с|.
+\mintinline{C++}|std::string &append(size_t count, char ch)|\\
+Добавляет в конец строки \verb|count| одинаковых символов, равных \verb|сh|.
 
 \vspace{0.6cm}
 \noindent
@@ -790,27 +792,29 @@ c = s1[0]; // c = 'a'
 
 \vspace{0.6cm}
 \noindent
-\mintinline{C++}|std::string &append(const std::string s, size_t pos, size_t count)|\\
+\mintinline{C++}|std::string &append(const std::string s, size_t pos, size_t count = npos)|\\
 Добавляет в конец строки символы строки \verb|s| начиная с символа с индексом \verb|pos| количеством \verb|count|.
+{\small Здесь и далее \verb|npos| --- наибольшее возможное значение \verb|size_t|.
+Переменная \verb|npos| является статическим членом класса \verb|std::string| и доступна
+как \verb|std::string::npos|.}
 
 \vspace{0.6cm}
 \noindent
-\mintinline{C++}|std::string &insert(size_t i, size_t n, char c)|\\
-Вставить \verb|n| одинаковых символов, равных \verb|с| на позицию \verb|pos|.
+\mintinline{C++}|std::string &insert(size_t index, size_t count, char ch)|\\
+Вставить \verb|count| одинаковых символов, равных \verb|ch|, на позицию \verb|index|.
 
 \vspace{0.6cm}
 \noindent
-\mintinline{C++}|std::string &insert(size_t i, const std::string &s)|\\
-\mintinline{C++}|std::string &insert(size_t i, const &s)|\\
-Вставить строку \verb|s| начиная с позиции \verb|i|.
+\mintinline{C++}|std::string &insert(size_t index, const std::string &s)|\\
+\mintinline{C++}|std::string &insert(size_t index, const char *s)|\\
+Вставить строку \verb|s| на позицию \verb|index|.
 
 \subsection*{Удаление}
 \noindent
 \mintinline{C++}|std::string &erase(size_type index = 0, size_type count = npos)|
 Удаляет из строки \verb|count| символов начиная с позиции \verb|index|
 включительно. Если \verb|index + count| больше размера строки, то
-удаляется вся оставшаяся строка. Возвращает ссылку на себя.
-{\small \verb|npos| --- наибольшее возможное значение \verb|size_t|.}
+удаляется вся строка, начиная с символа \verb|index|. Возвращает ссылку на себя.
 
 \subsection*{Замена}
 \vspace{0.6cm}
@@ -820,25 +824,27 @@ c = s1[0]; // c = 'a'
 Заменяет символы в диапазон \verb|[pos, pos + count]| символами строки \verb|s|.
 
 \subsection{Взятие подстроки}
+\noindent
 \mintinline{C++}|std::string substr(size_t pos = 0, size_t count = npos)|\\
-Возвращает подстроку длины \verb|count| данной строки начиная с символа с индексом \verb|pos| или до конца строки,
-если \verb|pos + count| больше размера строки.
+Возвращает подстроку данной строки начиная с символа с индексом \verb|pos|
+длины \verb|count| или до конца строки, если \verb|pos + count| больше размера строки.
 
 \subsection{Поиск}
-\vspace{0.6cm}
+
 \noindent
-\mintinline{C++}|size_t find(const char* str, size_t pos = 0)|\\
-\mintinline{C++}|size_t find(const std::string &str, size_t pos = 0)|\\
-Ищет в данной строке начиная с позиции \verb|pos| подстроку, \verb|str|.
-Возвращает позицию первого вхождения, если строка найдена и \verb|npos|, если не найдена.
+\mintinline{C++}|size_t find(const char *s, size_t pos = 0)|\\
+\mintinline{C++}|size_t find(const std::string &s, size_t pos = 0)|\\
+Ищет в данной строке начиная с позиции \verb|pos| подстроку, \verb|s|.
+Возвращает позицию первого вхождения, если строка найдена, и \verb|npos|, если не найдена.
 
 \vspace{0.6cm}
 \noindent
-\mintinline{C++}|size_t find(const char* s, size_t pos, size_t n)|\\
+\mintinline{C++}|size_t find(const char *s, size_t pos, size_t n)|\\
 Ищет в данной строке начиная с позиции \verb|pos| подстроку, равную первым \verb|n| символам строки \verb|str|.
-Возвращает позицию первого вхождения, если строка найдена и \verb|npos|, если не найдена.
+Возвращает позицию первого вхождения, если строка найдена, и \verb|npos|, если не найдена.
 
 \subsection{Получение указателя на массив символов}
+\noindent
 \mintinline{C++}|const char *c_str()|\\
 Возвращает указатель на содержимое \verb|std::string|. Возвращаемое значение можно использовать в функциях,
 которые должны получать на вход C-строку. Поскольку 
@@ -1782,6 +1788,7 @@ std::cout << ANSWER << '\n';
 Также Руководство Google по стилю кода рекомендует использовать эти директивы для предотвращения повторного включения одного
 и того же файла (include guards):
 \begin{minted}{C++}
+// В файле my-fancy-header.h
 #ifdef MY_FANCY_HEADER_H_
 #define MY_FANCY_HEADER_H_ 1
 
