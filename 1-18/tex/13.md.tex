@@ -64,21 +64,22 @@
   \item Специальные значения (\emph{NaN}, \emph{infinity}).
 \end{enumerate}
 
-В общем виде числа \textbf{IEEE 754} хранятся в памяти в следующем виде
-(на примере binary32, float в \textbf{С++}):
+Двоичный формат чисел \textbf{IEEE 754} (на примере binary32, float в \textbf{С++})
+изображен на рисунке \ref{fig:ieee754float}.
 
-\begin{figure}
-\centering
-\includegraphics{./res/ieee-binary32.png}
-\caption{IEEE-754 binary32}
-\end{figure}
-
-А представляются в виде 
+Формат представления чисел следующий:
 \begin{enumerate}
    \item \((-1)^s \times 1.M \times 2^E\), если \(E_{min} \le E \le E_{max}\) (нормализованные числа),
    \item \((-1)^s \times 0.M \times 2^{E_{min}}\), если \(E=E_{min}-1\) (денормализованные числа),
 \end{enumerate}
 где - s - знак - M - мантисса - E - порядок (англ. exponent)
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./res/ieee-binary32.png}
+  \caption{IEEE-754 binary32}
+  \label{fig:ieee754float}
+\end{figure}
 
 \subsection{Стек. Хранение локальных переменных}
 
@@ -95,13 +96,7 @@
 порядка вызова функций - \textbf{соглашением о вызовах} (англ.
 \emph{calling convention}).
 
-Например, на \emph{x86-64} стек растет от старших адресов к младшим:
-
-\begin{figure}
-\centering
-\includegraphics{./res/mem.png}
-\caption{Секции памяти в С++}
-\end{figure}
+Например, на \emph{x86-64} стек растет от старших адресов к младшим (рисунок \ref{fig:x86mem}).
 
 Аргументы и локальные переменные функций также в общем случае хранятся
 на стеке. При входе в функцию на стеке под нее выделяется \emph{кадр
@@ -110,3 +105,10 @@
 стека перемещается вверх, за этот кадр, поэтому содержимое становится
 недоступным). Очистка памяти на стеке происходит автоматически, без
 участия программиста.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{./res/mem.png}
+\caption{Секции памяти на архитектуре x86}
+\label{fig:x86mem}
+\end{figure}
