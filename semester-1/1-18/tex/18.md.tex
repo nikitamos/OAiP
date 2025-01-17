@@ -1,0 +1,70 @@
+\section{Арифметические и поразрядные операции. Результат операции}
+
+Пусть \texttt{a}, \texttt{b} - операнды. К арифметическим операциям в
+С++ относятся:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Операция & Вызов & Тип операндов \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Сложение & \texttt{a\ +\ b} & Целые/вещественные числа \\
+Вычитание & \texttt{a\ -\ b} & Целые/вещественные числа \\
+Умножение & \texttt{a\ *\ b} & Целые/вещественные числа \\
+Деление нацело & \texttt{a\ /\ b} & Целые числа \\
+Вещественное деление & \texttt{a\ /\ b} & Вещественные числа \\
+Взятие остатка от деления & \texttt{a\ \%\ b} & Целые числа \\
+Унарный плюс & \texttt{+a} & Целое/вещественное число \\
+Унарный минус & \texttt{-a} & Целое/вещественное число \\
+\end{longtable}
+
+Результатом арифметических операций являются числа (целые или
+вещественные).
+
+Пусть n - число разрядов (бит) в числах \texttt{a} и \texttt{b}. Пусть
+также \(a[i]\) означает \(i\)-ый бит числа a. К поразрядным операциям в
+С++ относятся:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3223}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0795}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1280}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5303}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Операция
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Вызов
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Тип операндов
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Примечание
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Побитовое И & \texttt{a\ \&\ b} & Целые числа & \texttt{r\ =\ a\ \&\ b;}
+\(\forall i=1...n,\ r[i] = a[i] \land b[i]\) \\
+Побитовое ИЛИ & \texttt{a\ \textbar{}\ b} & Целые числа
+& \texttt{r\ =\ a\ \textbar{}\ b;}
+\(\forall i=1...n,\ r[i] = a[i] \lor b[i]\) \\
+Побитовое ИСКЛЮЧАЮЩЕЕ ИЛИ & \texttt{a\ \^{}\ b} & Целые числа &
+\texttt{r\ =\ a\ \^{}\ b;}
+\(\forall i=1...n,\ r[i] = a[i] \oplus b[i]\) \\
+Побитовая инверсия & \texttt{\textasciitilde{}a} & Целое число &
+\texttt{r\ =\ \textasciitilde{}a;}
+\(\forall i=1...n,\ r[i] = \neg{a[i]}\) \\
+Побитовое сдвиг вправо & \texttt{a\ \textless{}\textless{}\ b} & Целые
+числа & Сдвигает биты числа \texttt{a} на \texttt{b} разрядов влево.
+Если \(b > n\) или \(b < 0\), результат не определен \\
+Побитовый сдвиг влево & \texttt{a\ \textgreater{}\textgreater{}\ b} &
+Целые числа & Сдвигает биты числа \texttt{a} на \texttt{b} разрядов
+вправо. Если \(b > n\) или \(b < 0\), результат не определен.Результат
+также не определен, если \(a < 0\), хотя большинство платформ применят
+расширение знаковым битом \\
+\end{longtable}
+
+Результатом поразрядных операций являются целые числа.

@@ -1,0 +1,158 @@
+\section{Виды констант в языке С++}
+
+Под \textbf{константой} понимается какая-либо \textbf{неизменяемая}
+величина.
+
+Можно выделить следующие виды констант:
+\begin{enumerate}
+  \item Макросы;
+  \item Литералы;
+  \item Собственно константы (с ключевым словом const);
+  \item Выражения constexpr;
+  \item Константы, члены перечисления.
+\end{enumerate}
+
+\subsection{Литералы}
+
+Литералы - непосредственные значения определенного типа, встроенные в
+программный код.
+
+Литералы могут иметь различный тип:
+\begin{enumerate}
+  \item целый;
+  \item вещественный;
+  \item логический;
+  \item символьный;
+  \item типа указателя (\minline{nullptr});
+  \item строковый;
+  \item (\emph{необязательно}) пользовательского типа (при
+    соответствующем переопределенном операторе в пользовательском типе).
+\end{enumerate}
+
+\begin{tiny}
+  \begin{longtable}[]{@{}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1341}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.7095}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2365}}@{}}
+    \toprule\noalign{}
+    \begin{minipage}[b]{\linewidth}\raggedright
+      Тип литерала
+    \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+      Формат
+    \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+      Пример
+    \end{minipage} \\
+    \midrule\noalign{}
+    \endhead
+    \bottomrule\noalign{}
+    \endlastfoot
+    целый & префикс \texttt{0} - 8-ричноепрефикс\par \texttt{0x} -
+    16-ричноепрефикс\par \texttt{0b} - 2-чное\par суффикс \texttt{l} - не меньший,
+    чем \texttt{long\ int}\par суффикс \texttt{u} - не меньший, чем
+    \texttt{unsigned\ int}\par суффикс \texttt{ll} - не меньший чем
+    \texttt{long\ long\ int}\par одновременно \texttt{ll} и \texttt{u} - не
+    меньший, чем \texttt{unsigned\ long\ long\ int}\par Регистр символов неважен;
+    группы цифр можно разделять \texttt{\textquotesingle{}} &
+    \texttt{42}\par \texttt{052}\par \texttt{0x2a}\par \texttt{0x2A}\par \texttt{0b101010} (с
+    \textbf{С++14})\par \texttt{18446744073709550592ull}\par \texttt{1\textquotesingle{}000\textquotesingle{}000\textquotesingle{}000ULL} \\
+    вещественный & позволительна запись в экспоненциальном
+    (\(m*10^{\pm t}\)) виде: \texttt{mE±t}, (если \(t\ge 0\), \(+\) можно
+    опустить: \texttt{mEt})\par суффикс \texttt{f} - тип \texttt{float}\par суффикс
+    \texttt{l} - тип \texttt{long\ double}\par иначе - \texttt{double}\par регистр
+    символов не имеет значения; группы цифр можно разделять
+    \texttt{\textquotesingle{}} &
+    \texttt{1.0056}\par \texttt{3.1415E12}\par \texttt{0.0f}\par \texttt{1\textquotesingle{}000\textquotesingle{}000.123\textquotesingle{}812L} \\
+    логический & \texttt{true} - \emph{истина}\par \texttt{false} - \emph{ложь} &
+    \texttt{true} \\
+    литерал-указатель & \texttt{nullptr} - предпочтительная замена
+    \texttt{0} и макросу \texttt{NULL} & \texttt{nullptr} \\
+    символьный & без префикса - \texttt{char}\par \texttt{u8} -
+    \texttt{char8\_t}(c \textbf{C++17})\par \texttt{L} -
+    \texttt{wchar\_t}\par \texttt{u} - \texttt{char16\_t}\par \texttt{U} -
+    \texttt{char32\_t}\par типы \texttt{char*\_t} хранят символ Unicode в
+    кодировке UTF-* \par разрешены escape-последовательности &
+    \texttt{\textquotesingle{}a\textquotesingle{}}\par \texttt{\textquotesingle{}\textbackslash{}n\textquotesingle{}}\par \texttt{u\textquotesingle{}=\textquotesingle{}}\par \texttt{u8\textquotesingle{}W\textquotesingle{}}\par \texttt{L\textquotesingle{}ъ\textquotesingle{}}\par \texttt{U\textquotesingle{}*\textquotesingle{}}\par \\
+    строковый & префиксы аналогичны символьным литералам, но обозначают тип
+    символов строки\par суффикс \texttt{s} используется для создания литерала
+    объекта \texttt{std::*string} (\texttt{std::string},
+    \texttt{std::wstring}, \texttt{std::u8string}, и т.д.)\par также существуют
+    \emph{сырые строки}, \par Они задаются префиксом \texttt{R} и ограничиваются \par
+    \texttt{R"символы(....)символы"} &
+    \texttt{"hello"}\par \texttt{u8"Hello,\ I\textquotesingle{}m\ UTF-8"}\par \texttt{L"Long\ string\ literal"}\par \texttt{R"(Prepare\ thyself!)"}\par \texttt{R"lit(A\ "(string)")lit"} \\
+  \end{longtable}
+\end{tiny}
+  
+\subsection{Именованные константы}
+  
+Символические константы - именованные константы, используются чтобы не
+использовать \emph{магические числа} т.к. оные не несут смысла без
+контекста.
+
+\begin{enumerate}
+\item
+  Макросы - подставляются препроцессором. Не рекомендуются к
+  использованию.
+\begin{minted}{C++}
+  #define ANSWER_TO_THE_UNIVERSE 42
+\end{minted}
+\item
+  \texttt{const} - основной способ показать неизменяемость в С++.
+
+  \begin{itemize}
+  \item
+    Константные переменные должны быть инициализированы, когда вы их
+    определяете, после этого это значение не может быть изменено с
+    помощью присваивания;
+  \item
+    Объявление переменной как const предотвращает непреднамеренное
+    изменение ее значения;
+  \item
+    Константные переменные могут быть инициализированы из других
+    переменных (включая неконстантные).
+  \end{itemize}
+
+  \texttt{const} часто используется с параметрами функции, что
+  гарантирует, что функция не изменит значение аргумента. Впрочем,
+  данное свойство полезно только при передаче \emph{по ссылке} или
+  \emph{по указателю}: при передаче по значению все аргументы функции
+  копируются и функция в любом случае не может изменить значение извне:
+\begin{minted}{C++}
+    void ByValue(int i) { i = 42; }
+    void ByReference(int &i) { i = 69; }
+    void ByPointer(int *i) { *i = 34; }
+
+    int main() {
+      int a = 0;
+      int b = 0;
+      int c = 0;
+
+      ByValue(a);
+      ByReference(b);
+      ByPointer(&c);
+
+      // a == 0, b == 69, c == 34
+
+      return 0;
+    }
+\end{minted}
+\item
+  Ключевое слово \texttt{constexpr} появилось с \textbf{С++11} и
+  позволяет показать \emph{константу времени компиляции}, т.е. значения,
+  помеченные \texttt{constexpr} компилятор вправе вычислить во время
+  компиляции. При этом было бы ошибкой попытаться инициализировать
+  \texttt{constexpr} константу не \texttt{constexpr} выражением.
+\item
+  Члены перечисления также являются символическими константами связанным
+  с ними числовым значениям:
+\begin{minted}{C++}
+  enum MyEnum {
+      kZero = 0,
+      kOne,
+      kTwo,
+      kFive = 5,
+      kSix
+    };
+    // ...
+    std::cout << kFive; // 5
+\end{minted}
+\end{enumerate}
