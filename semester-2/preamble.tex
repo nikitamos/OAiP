@@ -1,0 +1,46 @@
+\documentclass[12pt, a4paper]{extarticle}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+
+\usepackage{fontspec}
+% \defaultfontfeatures{Renderer=Basic,Ligatures={TeX}}
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+\newfontfamily{\cyrillicfonttt}{CMU Typewriter Text}
+
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage[pdfversion=1.7]{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{listing}
+\usepackage{pdfpages}
+\usepackage[pipeTables,tableCaptions]{markdown}
+\usepackage{hyphenat}
+\usepackage{emoji}
+\usepackage[inline]{enumitem}
+\usepackage[margin=15mm]{geometry}
+\usepackage{longtable}
+\usepackage{array,calc}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{tabularray}
+\usepackage{minted}
+\usepackage[stable]{footmisc} % footnotes in section titles
+
+\newlist{enuminl}{enumerate*}{1}
+\setlist[enuminl]{label=(\arabic*)}
+\newcommand{\itembf}[1]{\item \textbf{#1}}
+
+\newcommand\tab{\par\hspace{2em}}
+\newcommand{\cppsrc}[1]{\mint{C++}|#1|}
+\newcommand{\mverb}[1]{\mintinline{C++}|#1|}
+
+\author{
+  Забережный Тимофей \\
+  Багаев     Леонид  \\
+  Москалёв   Никита  \\
+  Буховец    Устин   \\
+}
+\title{Ответы по ОАиПу. Семестр 2}
