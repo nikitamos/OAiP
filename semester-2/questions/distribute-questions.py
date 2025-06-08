@@ -27,7 +27,7 @@ if __name__ == '__main__':
     begin = 0
     for g in map(int, argv[1:6]):
         filename = f'{begin+1}-{begin+g}.tex'
-        answers += '\\include{%s}\n' % filename
+        answers += '\\include{questions/%s}\n' % filename
         write_file(islice(questions, begin, begin + g), filename)
         begin += g
 
