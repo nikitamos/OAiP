@@ -240,4 +240,104 @@ struct ForwardListNode {
 \label{sec:tree-node-ops}
 \section{Сбалансированные деревья. Сортировка с помощью бинарных деревьев (кучи)}
 \section{Графы и возможные формы их описания. Нахождение кратчайшего пути на графе}
+Графы в программировании представляют собой обобщение деревьев и подобны графам из математики.
+Каждой вершине графа сопоставляется какое-либо значение, а некоторые пары вершин соединены
+ребрами.
+
+\subsection{Способы представления}
+Способы задания графов в памяти компьютера в целом такие же, как и в математике,
+за исключением того, что иногда матрицы заменяют списками для оптимизации
+пространственной сложности.
+\begin{longtable}[]{@{}lll@{}}
+  Тип представления & Описание & Занимаемое место \\ \hline
+  Матрица смежности &
+  \begin{minipage}{10cm}
+    Данные, соответствующие узлам графа хранятся в виде одномерного массива \verb|b|.
+    Дуги графа хранятся в виде двумерного булева массива (матрицы смежности) \verb|a[i][j]|,
+    причем \mverb{a[i][j] == true} тогда и только тогда, когда вершины \verb|b[i]| и \verb|b[j]|
+    соединены дугой.
+  \end{minipage} & $O(V+V^2)$ \\ \hline
+  Список (массив) смежности & .. & O(V+E) \\ \hline
+  Матрица/список инцидентности & .. & O(V\cdot E) \\ \hline
+  Список ребер & .. & O(E) \\ \hline
+  Структура с оглавлением & .. & O(V+E) \\ \hline
+\end{longtable}
+
+\subsection{Алгоритмы поиска}
+{\small\itshape {\bfseries \color{red} Примечание автора.\hspace{0.5em}}
+Здесь, скорее всего, подразумеваются алгоритмы обхода графа.
+}
+
+Существует два основных алгоритма обхода графов: поиск в ширину и поиск в глубину.
+
+\newcommand{\asgn}{\gets\,}
+
+\subsubsection{Поиск в ширину (BFS)}
+\begin{algorithmic}
+\Procedure{BFS}{Graph $g$, NodeIndex origin}
+  \State $q$ \asgn empty Queue
+  \State $visited$ \asgn empty Container
+  \State $q$.\Call{Push}{$origin$}
+  \While{$q$ is not empty}
+    \State $n$ \asgn $q$.\Call{Pop}{}
+    \State $visited$.\Call{Push}{$n$.index}
+    \State Handle $g$.nodes[$n$]
+    \ForAll{adjacent nodes $m$ of $n$}
+      \If{$m.\text{index} \notin visited$}
+        $q$.\Call{Push}{m.index}
+      \EndIf
+    \EndFor
+  \EndWhile
+\EndProcedure
+\end{algorithmic}
+
+\subsubsection{DFS}
+Реализацию DFS можно получить путем замены в алгоритме BFS очереди на стек:
+\begin{algorithmic}
+\Procedure{DFS}{Graph $g$, NodeIndex $origin$}
+  \State $q$ \asgn empty Stack
+  \State $visited$ \asgn empty Container
+  \State $q$.\Call{Push}{$origin$}
+  \While{$q$ is not empty}
+    \State $n$ \asgn $q$.\Call{Pop}{}
+    \State $visited$.\Call{Push}{$n$.index}
+    \State Handle $g$.nodes[$n$]
+    \ForAll{adjacent nodes $m$ of $n$}
+      \If{$m.\text{index} \notin visited$}
+        $q$.\Call{Push}{m.index}
+      \EndIf
+    \EndFor
+  \EndWhile
+\EndProcedure
+\end{algorithmic}
+
+Существует также рекурсивная реализация DFS, которая в качестве стека использует
+стек вызовов.
+\begin{algorithmic}
+\State $visited$ \asgn empty Container
+\Comment{Глобальная переменная для индексов посещенных узлов}
+\Procedure{DFSRecursive}{Graph $g$, NodeIndex $n$}
+  \If{$n$.index $ \in visited$}
+    \State\Return
+  \EndIf
+  \State $visited$.\Call{Push}{$n$.index}
+  \State Handle $g$.nodes[$n$]
+  \ForAll{adjacent nodes $m$ of $n$}
+    \State \Call{DFSRecursive}{$g$, $m$.index}
+  \EndFor
+\EndProcedure
+\end{algorithmic}
+
+Выбор конкретного алгоритма поиска зависит от типа графа. Если граф
+не является взвешенным, то самым простым и эффективным решением будет
+алгоритм поиска в ширину. Если граф взвешенный, то есть каждому ребру
+сопоставлен какое либо число, величина которого определяет <<длину>> ребра:
+чем больше вес, тем длиннее
+\subsubsection{BFS}
+Для неориентированных графов 
+\subsubsection{A*}
+
+Прежде чем читать этот раздел, следует ознакомиться с \hyperref[sec:dijkstra]{алгоритмом Дейкстры}.
 \section{Алгоритм Дейкстры, алгоритм Форда}
+\subsection{Алгоритм Дейкстры}
+\label{sec:dijkstra}
