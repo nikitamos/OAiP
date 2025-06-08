@@ -1,3 +1,4 @@
+%cSpell:enableCompoundWords
 \section{Шейкерная сортировка. Сортировка Шелла}
 
 \section{Сортировка Хоара – алгоритм QuickSort. Сортировка слиянием}
@@ -101,6 +102,7 @@ int main() {
 Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 
 \section{Бинарные деревья – основные понятия. Основные операции с бинарными деревьями}
+\subsection{Определения}
 \textbf{Дерево} --- связный ациклический иерархически построенный граф. Граф обычно
 полагается ориентированным в направлении иерархии: в каждую вершину (кроме одной,
 называемой \textbf{корнем}) входит ровно одно ребро, но исходить из вершины может
@@ -132,7 +134,66 @@ Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
 равной высоте его корня.
 
 % Полнота, завершенность, идеальность?
-К основным операциям на деревьях относятся добавление, удаление и поиск узла (см. \ref{sec:tree-node-ops}), а также обход дерева.
+К основным операциям на деревьях относятся добавление, удаление и поиск узла (см. вопрос \ref{sec:tree-node-ops}), а также обход дерева.
+
+\subsection{Обход}
+\textbf{Обход дерева} --- посещение всех узлов дерева в определенном порядке и обработка содержащихся в них данных.
+Выделяют четыре основных порядка обхода: в ширину, в прямом порядке, в обратном порядке и в симметричном порядке.
+Алгоритм обхода в ширину использует $O(n)$ дополнительной памяти, остальные алгоритмы используют $O(\log n)$ памяти
+на \textit{стек вызовов} {\color{red} TODO: ссылка на вопрос про стек вызовов}.
+
+Предположим, что мы имеем дело с бинарным деревом поиска. Тогда обход в прямом порядке будет обрабатывать значения
+в порядке их возрастания. Ниже приведен алгоритм обхода в прямом порядке на псевдокоде.
+\begin{algorithmic}[1]
+  \Function{InOrder}{Node n}
+    \State Handle n
+    \Comment{Обработать n}
+    \If{n has left child}
+      \State \Call{InOrder}{n.left}
+      \Comment{Посетить левое поддерево}
+    \EndIf
+
+    \If{n has right child}
+      \State \Call{InOrder}{n.right}
+      \Comment{Посетить правое поддерево}
+    \EndIf
+  \EndFunction
+\end{algorithmic}
+
+Алгоритм обхода в обратном порядке:
+\begin{algorithmic}[1]
+  \Function{PostOrder}{Node n}
+    \If {n has left child}
+      \State \Call{PostOrder}{n.left}
+    \EndIf
+    \If{n has right child}
+      \State \Call{PostOrder}{n.right}
+    \EndIf
+    \State Handle n
+  \EndFunction
+\end{algorithmic}
+
+% TODO: симметричный обход
+
+Алгоритм обхода дерева в ширину посещает дерево слой за слоем: сначала посещается корневой узел,
+затем его дети (все вершины глубины 1), после них алгоритм посещает все вершины глубины 2 и так
+далее, пока не будут исчерпаны все вершины.
+\begin{algorithmic}[1]
+  \Function{Bfs}{Node n}
+    \State q $\gets$ empty Queue
+    \State \Call{q.Push}{n}
+    \While{q is not empty}
+      \State m $\gets$ q.\Call{Pop}{}
+      \State Handle m
+      \If {n has left child}
+        \State q.\Call{Push}{n.left}
+      \EndIf
+      \If{n has right child}
+        \State q.\Call{Push}{n.right}
+      \EndIf
+    \EndWhile
+  \EndFunction
+\end{algorithmic}
 
 \section{Понятие рекурсивного типа данных}
 \section{Поиск и включение для деревьев. Исключение для деревьев}
