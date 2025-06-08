@@ -96,6 +96,8 @@ $biber = "biber --validate-datamodel %O %S";
 
 # directory
 $aux_dir = "build";
+# Silence 'can not write' error on the first run of compiler
+system("mkdir", "-p", "$aux_dir/questions");
 
 # ======================================================================================
 # Auxiliary Files
