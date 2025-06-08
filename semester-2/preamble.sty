@@ -36,6 +36,19 @@
 \newcommand\tab{\par\hspace{2em}}
 \newcommand{\cppsrc}[1]{\mint{C++}|#1|}
 \newcommand{\mverb}[1]{\mintinline{C++}|#1|}
+
+\usepackage{xstring}
+\usepackage{ifthen}
+
+% cppreference macro
+% Usage: \cppref[Стандарт C++]{cpp}                 will link to https://cppreference.com/w/cpp                and render as `Стандарт С++'
+%        \cppref{cpp}                               will link to https://cppreference.com/w/cpp                and render as `https://cppreference.com/w/cpp'
+%        \cppref[Таблица ASCII]{cpp/language/ascii} will link to https://cppreference.com/w/cpp/language/ascii and render as `Таблица ASCII'
+\makeatletter
+\newcommand*{\cppref}[2][]{%
+\href{http://cppreference.com/w/#2}%
+{\ifthenelse{\equal{#1}{}}{http://cppreference.com/w/#2}{#1}}}
+\makeatother
 % cSpell:enable
 
 \author{
