@@ -1,5 +1,11 @@
 {
     "latex-workshop.latex.recipe.default": "first",
+    "latex-workshop.intellisense.command.user": {
+        "cppref[]{}": "cppref[${1:text}]{${2:key}}",
+        "itembf[]": "itembf[${1:bold item}]",
+        "cppsrc[]": "cppsrc{${1:C++ display mode}}",
+        "mverb{}": "mverb{${1:C++ inline mode}}"
+    },
     "latex-workshop.latex.recipes": [
         {
             "name": "latexmk (lualatex)",
