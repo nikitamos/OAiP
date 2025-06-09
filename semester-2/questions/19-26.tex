@@ -395,7 +395,104 @@ private:
 % ********************
 %
 
-\section{Многократный поиск на основе использования статистических данных}
+\section{Многократный поиск на основе использования статистических данных\footnote{
+    Авторы солидарны с предыдущем потоком ИиТП по поводу глупости этого вопроса, и за не имением лучших
+    идей продублируют представленную ранее
+    \href{https://docs.google.com/document/d/1IDx1FsePF0Gved69eeGE0gimE9MP1xxI_EY23wfWqO0/edit?tab=t.0}{информацию}.}}
+
+Для улучшения эффективности многократного поиска подстрок в тексте может использоваться
+\textit{многократный поиск на основе статистических данных}. В этом случае большим подспорьем может стать информация о частоте
+вхождений в текст символов из алфавита. Для заданного образца определяется наименее используемый в строке символ и далее алгоритм
+основан на перемещении по образцу с помощью перехода на следующий <<редкий символ>>. При этом такой поиск часто сочетает в себе
+элементы традиционных алгоритмов поиска подстроки в строке. Приведем краткие сведения о них.
+
+\subsection{Прямой поиск}
+Наивное сопоставление текста с шаблоном. Крайне низкая эффективность (временная сложность \(O(n\cdot m)\), \(n\) и \(m\)~---
+длины строки и подстроки соответственно). Приведем псевдокод алгоритма (\textit{needle}~--- шаблон, \textit{haystack}~--- строка).
+
+\begin{algorithmic}
+  \Function{$na\ddot\imath ve\_search$}{$needle, haystack$}
+  \For{$i \gets 0; haystack\left[i\right] \ne 0; i \gets i + 1 $}
+  \For{$j \gets 0; ; j \gets j + 1$}
+  \If{$needle\left[j\right] \ne 0$}
+  \Return $i$
+  \EndIf
+  \If{$haystack\left[i + j\right] \ne needle\left[j\right]$}
+  \State \textbf{break}
+  \EndIf
+  \EndFor
+  \EndFor
+  \State
+  \Return $unsuccessful$
+  \EndFunction
+\end{algorithmic}
+
+\subsection{Алгоритм Кнута-Мориса-Пратта}
+Алгоритм КМП~--- эффективный алгоритм поиска подстроки в строке, работающий за линейное время (\(O(n + m)\), \(n\)~--- длина шаблона, \(m\)~--- строки).
+Он использует предварительную обработку искомой строки для создания таблицы <<префиксов>>,
+которая указывает, куда следует переместить индекс поиска в случае несоответствия символов.
+
+Псевдокод алгоритма:
+
+\begin{algorithmic}
+  \Function{$kmp\_search$}{$needle, haystack$}
+  \State $j \gets 0$
+  \State $k \gets 0$
+  \State $T \gets kmp\_table(needle)$
+  \While{$j < \text{length}(haystack)$}
+  \If{$needle\left[k\right] = haystack\left[j\right]$}
+  \State $j \gets j + 1$
+  \State $k \gets k + 1$
+  \If{$k = \text{length}(needle)$}
+  \Return $j - k$
+  \Else
+  \State $k \gets T\left[k\right]$
+  \If{$k < 0$}
+  \State $j \gets j + 1$
+  \State $k \gets k + 1$
+  \EndIf
+  \EndIf
+  \EndIf
+  \EndWhile
+  \State
+  \Return $unsuccessful$
+  \EndFunction\\
+
+  \Function{$kmp\_table$}{$needle$}
+  \State $T \gets \left[\right]$
+  \State $pos \gets 1$
+  \State $cnd \gets 0$
+  \While{$pos < \text{length}(needle)$}
+  \If{$needle\left[pos\right] = needle\left[cnd\right]$}
+  \State $T\left[pos\right] \gets T\left[cnd\right]$
+  \Else
+  \State $T\left[pos\right] \gets cnd$
+  \While{$cnd \ge 0~\textbf{and}~needle\left[pos\right] \ne needle\left[cnd\right]$}
+  \State $cnd \gets T\left[cnd\right]$
+  \EndWhile
+  \EndIf
+  \State $pos \gets pos + 1$
+  \State $cnd \gets cnd + 1$
+  \EndWhile
+  \State
+  \Return $T$
+  \EndFunction
+\end{algorithmic}
+
+Дополнительно можно изучить по ссылкам: \href{https://en.wikipedia.org/wiki/Knuth\%E2\%80\%93Morris\%E2\%80\%93Pratt_algorithm}{Wikipedia},
+\href{https://neerc.ifmo.ru/wiki/index.php?title=\%D0\%90\%D0\%BB\%D0\%B3\%D0\%BE\%D1\%80\%D0\%B8\%D1\%82\%D0\%BC\_\%D0\%9A\%D0\%BD\%D1\%83\%D1\%82\%D0\%B0-\%D0\%9C\%D0\%BE\%D1\%80\%D1\%80\%D0\%B8\%D1\%81\%D0\%B0-\%D0\%9F\%D1\%80\%D0\%B0\%D1\%82\%D1\%82\%D0\%B0}{Итмо}.
+
+\subsection{Алгоритм Бойера-Мура-Хорспула}
+Этот эффективный алгоритм поиска подстроки в строке на практике оказывается быстрее других. В среднем (почти всегда) имеет линейное
+время работы (\(O(n + m)\), \(n\)~--- длина шаблона, \(m\)~--- строки); однако на определенных наборах данных
+может деградировать до \(O(n\cdot m)\). В отличие от большинства других алгоритмов, алгоритм Бойера-Мура-Хорспула сравнивает
+символы с конца, а не с начала, как большинство других алгоритмов.
+
+Алгоритм предварительно обрабатывает данные, строя таблицы для эвристик. После чего на стадии поиска эти эвристики используются
+для ускорения нахождения следующего возможного совпадения.
+
+Дополнительная информация: \href{https://neerc.ifmo.ru/wiki/index.php?title=Алгоритм_Бойера-Мура}{Итмо},
+\href{https://ru.wikipedia.org/wiki/Алгоритм_Бойера_—_Мура_—_Хорспула}{Википедия}.
 
 %
 % ********************
