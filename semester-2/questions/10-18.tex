@@ -17,7 +17,6 @@
 В категории базовых типов выделяют
 
 \begin{enumerate}
-    \def\labelenumi{\arabic{enumi})}
     \item
           Пустой тип (он же \texttt{void} в \textbf{С++}).
 
@@ -172,7 +171,7 @@ sizeof(char) == sizeof(short) == sizeof(int) == sizeof(long) == sizeof(long long
           двойной точности. Обычно \textbf{IEEE 754} \emph{binary64}.
     \item \minline{long double} - вещественный тип повышенной точности.
           \begin{quote}
-              На разных платформах может быть типом четверной точности (**IEEE 754** *binary128*), 80-битным *x87-80 extended precision format* на *x86*, быть эквивалентным `double` или реализован каким-либо другим образом.
+              На разных платформах может быть типом четверной точности (\textbf{IEEE 754} \textit{binary128}), 80-битным \textit{x87-80 extended precision format} на \textit{x86}, быть эквивалентным `double` или реализован каким-либо другим образом.
           \end{quote}
 \end{enumerate}
 
@@ -470,9 +469,10 @@ public:
 \begin{minted}{C++}
 class T
 {
-public:
+private:
     int num;
 
+public:
     T() { num = 42; }
 
     int getNum() { return num; } // метод, в данном случае геттер
@@ -564,7 +564,7 @@ pfunc_arr[3](); // вызов по указателю
 
 Модули устраняют или сокращают многие проблемы, связанные с использованием файлов заголовков. Они часто сокращают время компиляции, иногда значительно. Макросы, директивы препроцессора и неэкспортированные имена, объявленные в модуле, не отображаются за пределами модуля. Они не влияют на компиляцию единицы перевода, импортируемой модулем. Модули можно импортировать в любом порядке без проблем с переопределениями макросов. Объявления в импортирующей единице перевода не участвуют в разрешении перегрузки или поиске имен в импортированном модуле. После компиляции модуля результаты хранятся в двоичном файле, который описывает все экспортированные типы, функции и шаблоны. Компилятор может обрабатывать этот файл гораздо быстрее, чем файл заголовка. И компилятор может повторно использовать его везде, где модуль импортируется в проект.
 
-Модули можно использовать параллельно с файлами заголовков. Исходный файл C++ может содержать \mverb{import} модули, а также \mverb{#include} файлы заголовков.
+Модули можно использовать параллельно с файлами заголовков. Исходный файл C++ может содержать \mverb{import} модули, а также \mverb{include} файлы заголовков.
 
 \subsection{Модуль с одним разделом}
 
@@ -745,6 +745,7 @@ clang++ -std=c++20 useBOnly.cppm --precompile -o useBOnly.pcm \
 
 \textbf{Полезные ссылки}
 \begin{itemize}
+    \item \href{https://en.cppreference.com/w/cpp/language/modules.html}{Cppreference - Modules}
     \item \href{https://clang.llvm.org/docs/StandardCPlusPlusModules.html}{Standard C++ Modules}
     \item \href{https://learn.microsoft.com/ru-ru/cpp/cpp/modules-cpp?view=msvc-170}{Обзор модулей в C++}
 \end{itemize}
@@ -921,7 +922,7 @@ int main()
 Массив представляет набор однотипных данных. Формальное определение массива выглядит следующим образом:
 
 \begin{minted}{C++}
-тип\_переменной название\_массива [длина\_массива]
+тип_переменной название_массива [длина_массива]
 \end{minted}
 
 Число элементов массива также можно определять через константу:
@@ -968,7 +969,7 @@ delete [] array;
 array = nullptr;
 \end{minted}
 
-Также после освобождения хорошей практикой среди программистов является зануление массива.
+Также после освобождения хорошей практикой среди программистов является зануление указателя на массива.
 
 В остальном взаимодействие с динасическими массивами производиться также как и со статическими.
 
@@ -1236,7 +1237,6 @@ void CList::Print(void)
 \begin{minted}{C++}
 // C++ program to Implement doubly linked list
 #include <iostream>
-using namespace std;
 
 // Define a class named Node to represent a node in the
 // doubly linked list.
@@ -1308,7 +1308,7 @@ void insertAtEnd(Node*& head, int data)
 void insertAtPosition(Node*& head, int data, int position)
 {
     if (position < 1) {
-        cout << "Position should be >= 1." << endl;
+        std::cout << "Position should be >= 1." << endl;
         return;
     }
 
@@ -1331,7 +1331,7 @@ void insertAtPosition(Node*& head, int data, int position)
     // Check if the position is greater than the number of
     // nodes.
     if (temp == nullptr) {
-        cout << "Position greater than the number of nodes."
+        std::cout << "Position greater than the number of nodes."
              << endl;
         return;
     }
@@ -1352,7 +1352,7 @@ void deleteAtBeginning(Node*& head)
 {
     // Check if the doubly linked list is empty.
     if (head == nullptr) {
-        cout << "The list is already empty." << endl;
+        std::cout << "The list is already empty." << endl;
         return;
     }
 
@@ -1371,7 +1371,7 @@ void deleteAtEnd(Node*& head)
 {
     // Check if the doubly linked list is empty.
     if (head == nullptr) {
-        cout << "The list is already empty." << endl;
+        std::cout << "The list is already empty." << endl;
         return;
     }
 
@@ -1400,7 +1400,7 @@ void deleteAtPosition(Node*& head, int position)
 {
     // Check if the doubly linked list is empty.
     if (head == nullptr) {
-        cout << "The list is already empty." << endl;
+        std::cout << "The list is already empty." << endl;
         return;
     }
 
@@ -1419,7 +1419,7 @@ void deleteAtPosition(Node*& head, int position)
     // Check if the position is greater than the number of
     // nodes.
     if (temp == nullptr) {
-        cout << "Position is greater than the number of "
+        std::cout << "Position is greater than the number of "
                 "nodes."
              << endl;
         return;
@@ -1441,12 +1441,12 @@ void deleteAtPosition(Node*& head, int position)
 void printListForward(Node* head)
 {
     Node* temp = head;
-    cout << "Forward List: ";
+    std::cout << "Forward List: ";
     while (temp != nullptr) {
-        cout << temp->data << " ";
+        std::cout << temp->data << " ";
         temp = temp->next;
     }
-    cout << endl;
+    std::cout << endl;
 }
 
 // Function to print the doubly linked list in reverse
@@ -1455,7 +1455,7 @@ void printListReverse(Node* head)
 {
     Node* temp = head;
     if (temp == nullptr) {
-        cout << "The list is empty." << endl;
+        std::cout << "The list is empty." << endl;
         return;
     }
 
@@ -1465,12 +1465,12 @@ void printListReverse(Node* head)
     }
 
     // Traverse backwards.
-    cout << "Reverse List: ";
+    std::cout << "Reverse List: ";
     while (temp != nullptr) {
-        cout << temp->data << " ";
+        std::cout << temp->data << " ";
         temp = temp->prev;
     }
-    cout << endl;
+    std::cout << endl;
 }
 
 int main()
@@ -1488,7 +1488,7 @@ int main()
     insertAtPosition(head, 15, 2);
 
     // print the list
-    cout << "After Insertions:" << endl;
+    std::cout << "After Insertions:" << endl;
     printListForward(head);
     printListReverse(head);
 
@@ -1499,7 +1499,7 @@ int main()
     // deletion from specific position
     deleteAtPosition(head, 2);
 
-    cout << "After Deletions:" << endl;
+    std::cout << "After Deletions:" << endl;
     printListForward(head);
 
     return 0;
