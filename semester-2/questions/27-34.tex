@@ -1,5 +1,108 @@
 %cSpell:enableCompoundWords
+
+% My mini-preamble
+\newcommand{\asgn}{\gets\,}
+\newenvironment{landscape}{%
+\newgeometry{textwidth=\textheight,textheight=\textwidth,left=15mm,top=15mm}%
+\eject\pagewidth=297mm\pageheight=210mm%
+}{%
+\restoregeometry%
+\eject\pagewidth=210mm\pageheight=297mm%
+}
+
+% The actual content begins here.
 \section{Шейкерная сортировка. Сортировка Шелла}
+Все сортировки в этом и следующем вопросах сортируют массив по возрастанию.
+\subsection{Шейкерная сортировка}
+Шейкерная сортировка относится к так называемым сортировкам обменом и представляет
+собой усложненную версию пузырьковой сортировки, которая одновременно сортирует массив
+в двух направлениях, перемещая большие числа к концу массива, а маленькие --- к его началу.
+В среднем и в худшем случае сортировка имеет сложность $O(n^2)$. В лучшем случае, когда
+массива уже отсортирован, алгоритм имеет сложность $O(n)$.
+
+\begin{minted}{C++}
+/// Сортирует массив в порядке возрастания
+/// (за что этот алгоритм?)
+void ShakerSort(int *a, int count) {
+  if (count <= 1) {
+    return;
+  }
+  // Нижняя и верхняя границы неотсортированного подмассива
+  int left = 0;
+  int right = count - 1;
+  while (left != right) {
+    int last_swap = left;
+    // Поднятие больших чисел к концу массива
+    for (int i = left; i < right; ++i) {
+      if (a[i] > a[i + 1]) {
+        std::swap(a[i], a[i + 1]);
+        last_swap = i + 1;
+      }
+    }
+    right = last_swap;
+    // Перемещение маленьких чисел к началу массива
+    for (int i = right; i > left; --i) {
+      if (a[i] < a[i - 1]) {
+        std::swap(a[i], a[i - 1]);
+        last_swap = i - 1;
+      }
+    }
+    left = last_swap;
+  }
+}  
+\end{minted}
+
+\subsection{Сортировка Шелла}
+Сортировка Шелла является усовершенствованной версией сортировки вставками. Ее идея состоит
+в том, чтобы перед тем, как сортировать весь массив, упорядочить некоторые элементы,
+находящиеся на определенном расстоянии друг от друга.
+\begin{figure}
+  \begin{center}
+  \includegraphics[scale=0.4]{27-34/shell-sort.png}
+  \end{center}
+  \caption{Сравнение элементов сортировкой Шелла, $h=n/2$.}
+\end{figure}
+Алгоритм сортирует массив в $k$ проходов. $i$-й проход характеризуется
+значением смещения $h_i$, таким, что сортируются элементы, находящиеся на расстоянии
+$h_i$ друг от друга. Шелл предлагал смещения $h_0 = \left\lfloor\tfrac{n}{2}\right\rfloor$,
+$h_{i+1} = \left\lfloor\tfrac{h_i}{2}\right\rfloor$,
+\dots, $h_{k-1} = 1$. Возможны и другие смещения, но всегда требуется, чтобы $h_{k-1} = 1$
+и последовательность убывала.
+
+На $i$-м шаге с помощью сортировки вставками между собой значения, которые можно мысленно объединить в списки вида
+вида $a_{i}^{(l)}[n] = a[l+ph_i]$, где $l$ задает номер списка и индекс первого элемента
+сортируемого списка в основоном массиву, а номер $p$ изменяется так в таких пределах,
+чтобы элементы списка $a_{i}^{(l)}$ прошли наибольшее число элементов массива $a$,
+не выходя за его пределы. Затем отсортированные списки объединяются в массив,
+после чего массив вновь разбивается на списки. Данные действия повторяются ровно $k$ раз.
+
+Сложность алгоритма сортировки Шелла зависит от выбора смещений на каждом шаге.
+Ниже приведена сводная таблица некоторых схем.
+\begin{longtable}{p{2cm}p{8cm}l}
+  Автор   & Схема & Сложность \\ \hline
+  Шелл    & см. выше & $O(n^2)$ \\
+  Хиббард & \begin{minipage}{5cm} Все значения\\ $2^i - 1 \leq n\,\, \forall i \in \mathbb{N}$ \end{minipage} &  $O(n^{\frac 3 2})$ \\
+  % FIXME: powers
+  Седжвик & $h_i = \begin{cases}
+    9\cdot 2^i - 9\cdot 2^{i/2} + 1, 2 \mid (i+1) \\
+    8\cdot 2^i - 6\cdot 2^{(i+1)/2} + 1, 2 \not\mid (i+1)
+  \end{cases}$ & $O(n^{\frac 7 6})$..$O(n^{\frac 4 3})$ \\
+  Пратт   & \begin{minipage}{5cm} Все значения \\ $2^i \cdot 3^j \leq n/2\,\, \forall i,j \in \mathbb{N}$ \end{minipage} & $O(n\log^2 n)$ \\ \hline
+\end{longtable}
+
+\begin{minted}{C++}
+/// Сортирует массив array размера size с помощью сортировки Шелла
+/// использующей схему Шелла
+void ShellSort(int *array, int size) {
+    for (int s = size / 2; s > 0; s /= 2) {
+        for (int i = s; i < size; ++i) {
+            for (int j = i - s; j >= 0 && array[j] > array[j + s]; j -= s) {
+                std::swap(array[j], array[j+s]);
+            }
+        }
+    }
+}
+\end{minted}
 
 \section{Сортировка Хоара – алгоритм QuickSort. Сортировка слиянием}
 \subsection{QuickSort (быстрая сортировка)}
@@ -78,28 +181,69 @@ int main() {
 }
 \end{minted}
 
-% TODO: Check & add code
-\paragraph{Сортировка слиянием.}
-Разделяет исходный массив на два равных подмассива, после чего рекурсивно сортирует их по отдельности и объединяет.
-Массивы разделяются до тех пор, пока в них не останется одного элемента.
-
-Алгоритм сортировки таков:
+\subsection{Сортировка слиянием}
+Данный алгоритм также использует стратегию <<разделяй и властвуй>>, рекурсивно сортируя
+поданный на вход массив следующим образом:
 \begin{enumerate}
-  \item Если в массиве 1 элемент --- завершиться.
-  \item Найти середину массива.
-  \item Посортировать первую половину.
-  \item Посортировать вторую половину.
-  \item Объединить массив.
+  \item Массив разделяется на два подмассива так, чтобы их длины отличались не больше,
+        чем на единицу;
+  \item Каждый из подмассивов сортируется по отдельности рекурсивным вызовом;
+  \item Посортированные массивы объединяются в один. Первый элемент результирующего 
+        массива равен наименьшему из элементов подмассивов и так далее.
 \end{enumerate}
 
-Алгоритм объединения массивов:
-\begin{enumerate}
-  \item Циклично проходим по двум массивам.
-  \item В объединяемый ставим тот элемент, что меньше.
-  \item Двигаемся дальше, пока не дойдем до конца обоих массивов.
-\end{enumerate}
+Нетрудно заметить, что такая реализация потребует $O(n)$ дополнительной памяти.
+Существует реализация сортировки слиянием, которая не требует дополнительной памяти,
+однако она имеет большую временную сложность: $O(\log^2 n)$ против $O(\log n)$.
+Ниже приведена реализация обычного алгоритма сортировки слиянием. Здесь используются
+два массива, которые поочередно меняются местами. В каждом из этих массивов
+в данный момент времени сортируется только одна половина исходного массива.
 
-Time Complexity: $O(n\log n)$, Space Complexity: $O(n)$.
+\begin{minted}{C++}
+int *MergesortImpl(int *up, int *down, int left, int right) {
+  if (left == right) {
+    down[left] = up[left];
+    return down;
+  }
+
+  unsigned int middle = left + (right - left) / 2;
+
+  int *l_buff = MergesortImpl(up, down, left, middle);
+  int *r_buff = MergesortImpl(up, down, middle + 1, right);
+
+  int *target = l_buff == up ? down : up;
+
+  unsigned int l_cur = left, r_cur = middle + 1;
+  for (unsigned int i = left; i <= right; i++) {
+    if (l_cur <= middle && r_cur <= right) {
+      if (l_buff[l_cur] < r_buff[r_cur]) {
+        target[i] = l_buff[l_cur];
+        l_cur++;
+      } else {
+        target[i] = r_buff[r_cur];
+        r_cur++;
+      }
+    } else if (l_cur <= middle) {
+      target[i] = l_buff[l_cur];
+      l_cur++;
+    } else {
+      target[i] = r_buff[r_cur];
+      r_cur++;
+    }
+  }
+  return target;
+}
+
+void Mergesort(int *array, int len) {
+  int *back = new int[len];
+  std::copy(array, array + len, back);
+  int *sorted = MergesortImpl(array, back, 0, len - 1);
+  if (sorted != array) {
+    std::copy(back, back + len, array);
+  }
+  delete[] back;
+}
+\end{minted}
 
 \section{Бинарные деревья – основные понятия. Основные операции с бинарными деревьями}
 \subsection{Определения}
@@ -239,6 +383,7 @@ struct ForwardListNode {
 \section{Поиск и включение для деревьев. Исключение для деревьев}
 \label{sec:tree-node-ops}
 \section{Сбалансированные деревья. Сортировка с помощью бинарных деревьев (кучи)}
+
 \section{Графы и возможные формы их описания. Нахождение кратчайшего пути на графе}
 Графы в программировании представляют собой обобщение деревьев и подобны графам из математики.
 Каждой вершине графа сопоставляется какое-либо значение, а некоторые пары вершин соединены
@@ -248,96 +393,213 @@ struct ForwardListNode {
 Способы задания графов в памяти компьютера в целом такие же, как и в математике,
 за исключением того, что иногда матрицы заменяют списками для оптимизации
 пространственной сложности.
-\begin{longtable}[]{@{}lll@{}}
+
+% TODO: Arrange the figures somehow.
+\begin{figure}
+\begin{center}
+  \includegraphics{27-34/sample-graph3.png}
+  \caption{Граф с нумерованными (индексированными) вершинами}
+  \label{fig:graph}
+\end{center}
+\end{figure}
+\begin{figure}
+\begin{center}
+  \includegraphics{27-34/adjacency-list.png}
+  \caption{Список смежности}
+  \label{fig:adj-list}
+\end{center}
+\end{figure}
+\begin{figure}
+  {\large $$ \begin{array}{c|c}
+      & \begin{matrix} 0 & 1 & 2 & 3 \end{matrix} \\\hline
+    0 & \begin{matrix} 0 & 1 & 1 & 0 \end{matrix} \\
+    1 & \begin{matrix} 1 & 0 & 1 & 0 \end{matrix} \\
+    2 & \begin{matrix} 1 & 1 & 0 & 1 \end{matrix} \\
+    3 & \begin{matrix} 0 & 0 & 1 & 0 \end{matrix} \\
+  \end{array} $$}
+  \caption{Матрица смежности}
+  \label{fig:adj-mat}
+\end{figure}
+\begin{figure}
+  \begin{center}
+    $$[0, 1]\rightarrow[1, 2]\rightarrow[0, 1]\rightarrow[2, 3]$$
+  \end{center}
+  \caption{Список ребер}
+  \label{fig:edg-list}
+\end{figure}
+
+
+\begin{minipage}{16cm}
+\begin{longtable}[]{@{}>{\raggedright}p{3cm}p{100mm}p{3cm}@{}}
   Тип представления & Описание & Занимаемое место \\ \hline
   Матрица смежности &
-  \begin{minipage}{10cm}
     Данные, соответствующие узлам графа хранятся в виде одномерного массива \verb|b|.
     Дуги графа хранятся в виде двумерного булева массива (матрицы смежности) \verb|a[i][j]|,
     причем \mverb{a[i][j] == true} тогда и только тогда, когда вершины \verb|b[i]| и \verb|b[j]|
     соединены дугой.
-  \end{minipage} & $O(V+V^2)$ \\ \hline
-  Список (массив) смежности & .. & O(V+E) \\ \hline
-  Матрица/список инцидентности & .. & O(V\cdot E) \\ \hline
-  Список ребер & .. & O(E) \\ \hline
-  Структура с оглавлением & .. & O(V+E) \\ \hline
+  & $O(E+V^2)$ \\ \hline
+
+  Список (массив) смежности &
+    Для каждой вершины хранится список (или массив) индексов смежных с ней вершин. Очень
+    похоже на предыдущий пункт за исключением того, для отсутствующих ребер ничего не хранится.
+  & O(V+E) \\ \hline
+
+  Список ребер &
+    Граф представляется в виде списка или массива пар индексов смежных вершин.
+  & O(E) \\ \hline
+
+  Структура с оглавлением &
+    Данное представление получается из массивов смежности путем их объединения
+    в один большой массив. В массиве вершин хранится индекс, с которого начинается
+    ее массив смежности в объединенном массиве. Он заканчивается на индексе,
+    который находится перед индексом следующей вершины.
+  & O(V+E) \\ \hline
+  \caption{Некоторые способы представления графов в памяти}
 \end{longtable}
+\end{minipage}
 
-\subsection{Алгоритмы поиска}
-{\small\itshape {\bfseries \color{red} Примечание автора.\hspace{0.5em}}
-Здесь, скорее всего, подразумеваются алгоритмы обхода графа.
-}
+\subsection{Поиск кратчайшего пути}
+Задача поиска кратчайшего пути отдельно рассматривается для взвешенных
+и невзвешенных графов. Напомним, у взвешенных графов графов каждому
+ребру поставлено в соответствие какое-либо число --- вес ребра, или длина
+пути. Задача поиска кратчайшего пути на взвешенных графах сводится к поиску
+такого пути от одной вершины к другой, что сумма весов ребер на этом пути минимальна.
+Кратчайший путь на невзвешенных графах представляет собой такой путь, в котором
+меньше всего ребер.
 
-Существует два основных алгоритма обхода графов: поиск в ширину и поиск в глубину.
-
-\newcommand{\asgn}{\gets\,}
-
-\subsubsection{Поиск в ширину (BFS)}
+\subsubsection{BFS}
+Для поиска пути на невзвешенных графов используется поиска в ширину. Ниже приведен псевдокод функции,
+осуществляющей поиск кратчайшего пути в невзвешенном графе. Данная функция возвращает перечень вершин,
+через которые надо пройти, чтобы попасть из узла $origin$ в узел $destination$, включающий эти узы.
 \begin{algorithmic}
-\Procedure{BFS}{Graph $g$, NodeIndex origin}
+\Function{BfsPathFind}{Graph $g$, NodeIndex $origin$, NodeIndex $destination$}
+\LComment{Здесь NodeIndex --- это тип индекса вершины графа.}
   \State $q$ \asgn empty Queue
   \State $visited$ \asgn empty Container
+  \State $path$ \asgn empty Container
+  \State $comefrom$ \asgn Array of length $g.V$
   \State $q$.\Call{Push}{$origin$}
   \While{$q$ is not empty}
     \State $n$ \asgn $q$.\Call{Pop}{}
-    \State $visited$.\Call{Push}{$n$.index}
-    \State Handle $g$.nodes[$n$]
+    \State $visited$.\Call{Add}{$n$.index}
+    \If{$n$ = $destination$}
+      \State $visited$.\Call{Append}{$destination$}
+      \While{$n \neq origin$}
+        \State $n \gets visited[n]$
+        \State $visited$.\Call{Append}{$n$}
+      \EndWhile
+      \State \Return{$path$.\Call{Reverse}{}}
+    \EndIf
     \ForAll{adjacent nodes $m$ of $n$}
       \If{$m.\text{index} \notin visited$}
-        $q$.\Call{Push}{m.index}
+        \State $comefrom[m.\text{index}] \gets n$
+        \State $q$.\Call{Push}{m.index}
       \EndIf
     \EndFor
   \EndWhile
-\EndProcedure
+  \State \Return{$path$} \Comment{Пустой путь}
+\EndFunction
 \end{algorithmic}
-
-\subsubsection{DFS}
-Реализацию DFS можно получить путем замены в алгоритме BFS очереди на стек:
-\begin{algorithmic}
-\Procedure{DFS}{Graph $g$, NodeIndex $origin$}
-  \State $q$ \asgn empty Stack
-  \State $visited$ \asgn empty Container
-  \State $q$.\Call{Push}{$origin$}
-  \While{$q$ is not empty}
-    \State $n$ \asgn $q$.\Call{Pop}{}
-    \State $visited$.\Call{Push}{$n$.index}
-    \State Handle $g$.nodes[$n$]
-    \ForAll{adjacent nodes $m$ of $n$}
-      \If{$m.\text{index} \notin visited$}
-        $q$.\Call{Push}{m.index}
-      \EndIf
-    \EndFor
-  \EndWhile
-\EndProcedure
-\end{algorithmic}
-
-Существует также рекурсивная реализация DFS, которая в качестве стека использует
-стек вызовов.
-\begin{algorithmic}
-\State $visited$ \asgn empty Container
-\Comment{Глобальная переменная для индексов посещенных узлов}
-\Procedure{DFSRecursive}{Graph $g$, NodeIndex $n$}
-  \If{$n$.index $ \in visited$}
-    \State\Return
-  \EndIf
-  \State $visited$.\Call{Push}{$n$.index}
-  \State Handle $g$.nodes[$n$]
-  \ForAll{adjacent nodes $m$ of $n$}
-    \State \Call{DFSRecursive}{$g$, $m$.index}
-  \EndFor
-\EndProcedure
-\end{algorithmic}
-
-Выбор конкретного алгоритма поиска зависит от типа графа. Если граф
-не является взвешенным, то самым простым и эффективным решением будет
-алгоритм поиска в ширину. Если граф взвешенный, то есть каждому ребру
-сопоставлен какое либо число, величина которого определяет <<длину>> ребра:
-чем больше вес, тем длиннее
-\subsubsection{BFS}
-Для неориентированных графов 
 \subsubsection{A*}
-
+Для поиска кратчайшего пути на взвешенных графах, помимо данного алгоритма, можно
+использовать алгоритмы из \hyperref[sec:dijkstra_ford]{следующего вопроса.}
 Прежде чем читать этот раздел, следует ознакомиться с \hyperref[sec:dijkstra]{алгоритмом Дейкстры}.
+
+Алгоритм A* строится на основе алгоритма Дейкстры.
 \section{Алгоритм Дейкстры, алгоритм Форда}
+Данные алгоритмы предназначены для поиска пути на взвешенном графе.
+\label{sec:dijkstra_ford}
 \subsection{Алгоритм Дейкстры}
 \label{sec:dijkstra}
+
+
+
+
+
+% TODO: Place this into an appendix
+% \subsection{Алгоритмы поиска}
+% {\small\itshape {\bfseries \color{red} Примечание автора.\hspace{0.5em}}
+% Здесь, скорее всего, подразумеваются алгоритмы обхода графа, которые также называются <<поисками>>,
+% поскольку алгоритмы поиска кратчайшего пути рассматриваются в следующем вопросе.
+% }
+
+% Существует два основных алгоритма обхода графов: поиск в ширину (англ. Breadth-First Search, BFS)
+% и поиск в глубину (англ. Depth-First Search, DFS).
+% Их реализации практически идентичны. При одинаковом способе задания графа они также имеют
+% одинаковую вычислительную сложность. Отличаются эти алгоритмы лишь порядком обхода
+% графа.
+
+% \begin{center}
+% \begin{longtable}[]{@{}lc@{}}
+%   Способ задания & Трудоемкость BFS и DFS \\ \hline
+%   Матрица смежности & $O(V^2)$ \\
+%   Список смежности & $O(V+E)$ \\
+%   Матрица инцидентности & \dots \\
+%   Список ребер & $O(VE)$ \\
+%   Структура с оглавлением & \dots \\ \hline
+% \end{longtable}
+% \end{center}
+  
+% \subsubsection{Поиск в ширину (BFS)}
+% Этот алгоритм сначала обходит соседей данной вершины графа,
+% затем соседей соседей и так далее, как бы раскрывая весь граф
+% слоями (сравните с одноименным алгоритмом обхода деревьев).
+% Поскольку произвольный граф не имеет выраженной иерархической
+% структуры, необходимо поддерживать
+% \begin{algorithmic}
+% \Procedure{BFS}{Graph $g$, NodeIndex origin}
+% \Comment{Здесь NodeIndex --- это тип индекса вершины графа.
+% Если вершины хранятся в массиве, то он будет эквивалентен какому-либо
+% целочисленному типу, если нет, то это будет указатель на структуру узла.}
+%   \State $q$ \asgn empty Queue
+%   \State $visited$ \asgn empty Container
+%   \State $q$.\Call{Push}{$origin$}
+%   \While{$q$ is not empty}
+%     \State $n$ \asgn $q$.\Call{Pop}{}
+%     \State $visited$.\Call{Add}{$n$.index}
+%     \State Handle $g$.nodes[$n$]
+%     \ForAll{adjacent nodes $m$ of $n$}
+%       \If{$m.\text{index} \notin visited$}
+%         $q$.\Call{Push}{m.index}
+%       \EndIf
+%     \EndFor
+%   \EndWhile
+% \EndProcedure
+% \end{algorithmic}
+
+% \subsubsection{DFS}
+% Реализацию DFS можно получить путем замены в алгоритме BFS очереди на стек:
+% \begin{algorithmic}
+% \Procedure{DFS}{Graph $g$, NodeIndex $origin$}
+%   \State $q$ \asgn empty Stack
+%   \State $visited$ \asgn empty Container
+%   \State $q$.\Call{Push}{$origin$}
+%   \While{$q$ is not empty}
+%     \State $n$ \asgn $q$.\Call{Pop}{}
+%     \State $visited$.\Call{Add}{$n$.index}
+%     \State Handle $g$.nodes[$n$]
+%     \ForAll{adjacent nodes $m$ of $n$}
+%       \If{$m.\text{index} \notin visited$}
+%         $q$.\Call{Push}{m.index}
+%       \EndIf
+%     \EndFor
+%   \EndWhile
+% \EndProcedure
+% \end{algorithmic}
+
+% Существует также рекурсивная реализация DFS, которая в качестве стека использует
+% стек вызовов.
+% \begin{algorithmic}
+% \LComment{Переменная для индексов посещенных узлов. Может передаваться между рекурсивными вызовами по ссылке или быть глобальной.}
+% \State $visited$ \asgn empty Container
+% \Procedure{DFSRecursive}{Graph $g$, NodeIndex $n$}
+%   \If{$n$.index $ \in visited$}
+%     \State\Return
+%   \EndIf
+%   \State $visited$.\Call{Add}{$n$.index}z
+%   \State Handle $g$.nodes[$n$]
+%   \ForAll{adjacent nodes $m$ of $n$}
+%     \State \Call{DFSRecursive}{$g$, $m$.index}
+%   \EndFor
+% \EndProcedure
+% \end{algorithmic}
