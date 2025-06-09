@@ -324,7 +324,18 @@ void Mergesort(int *array, int len) {
   \EndFunction
 \end{algorithmic}
 
-% TODO: симметричный обход
+Алгоритм симметричного обхода:
+\begin{algorithmic}
+  \Function{InOrder}{Node n}
+    \If {n has left child}
+      \State \Call{InOrder}{n.left}
+    \EndIf
+    \State Handle n
+    \If{n has right child}
+      \State \Call{InOrder}{n.right}
+    \EndIf
+  \EndFunction
+\end{algorithmic}
 
 Алгоритм обхода дерева в ширину посещает дерево слой за слоем: сначала посещается корневой узел,
 затем его дети (все вершины глубины 1), после них алгоритм посещает все вершины глубины 2 и так
@@ -345,6 +356,27 @@ void Mergesort(int *array, int len) {
     \EndWhile
   \EndFunction
 \end{algorithmic}
+
+\subsection{Поиск минимума (максимума)}
+Минимальным элементом дерева является его самый левый элемент, а максимальным --- самый правый.
+\begin{minted}{C++}
+Node* MinNode(Node* root) {
+  while (root->left != nullptr) {
+    root = root->left;
+  }
+  return root;
+}
+Node* MaxNode(Node* root) {
+  while (root->right != nullptr) {
+    root = root->right;
+  }
+  return root;
+}
+\end{minted}
+
+Для бинарных поисковых деревьев вводятся \hyperref[sec:tree-node-ops]{алгоритмы добавления, поиска и удаления элементов}.
+
+Для самобалансирующихся деревьев дополнительно вводятся \hyperref[sec:rotations]{алгоритмы поворотов}.
 
 \section{Понятие рекурсивного типа данных}
 \textbf{Рекурсивным типом данных} является всякий тип данных, который в своем объявлении содержит ссылается
@@ -390,6 +422,105 @@ struct ForwardListNode {
 
 \section{Поиск и включение для деревьев. Исключение для деревьев}
 \label{sec:tree-node-ops}
+Рассмотрим операции над \hyperref[def:bst]{бинарными деревьями поиска} (BST) в их наивной реализации.
+У самобалансирующихся деревьев операции вставки и удаления будут устроены более сложно, однако
+операция поиска останется такой же.
+
+Все описанные здесь операции имеют вычислительную сложность $O(\log n)$ в лучшем
+и $O(n)$ в худшем случае.
+
+\subsection{Поиск}
+Поиск в BST по своей сути напоминает бинарный поиск в линейном массиве.
+Если значение в текущем узле совпадает с целевым, то мы возвращаем этот узел.
+Если значение в текущем узле меньше целевого, то мы запускаем поиск в левом поддереве.
+В противном случае поиск запускается в правом поддереве.
+\begin{minted}{C++}
+Node* Find(Node* root, int value) {
+  while (root != nullptr && root->data != value) {
+    if (value < root->data) {
+      root = root->left;
+    } else {
+      root = root->right;
+    }
+  }
+  return n;
+}
+\end{minted}
+\subsection{Вставка (<<включение>>)}
+Вставка работает аналогично поиску, однако при обнаружении у элемента отсутствия ребенка
+нужно подвесить на него вставляемый элемент.
+\begin{minted}{C++}
+Node* Insert(Node* root, int value) {
+  while (root != nullptr) {
+    if (value < root->data) {
+      if (root->left != nullptr) {
+        root = root->left;
+      } else {
+        root->left = new Node(value);
+        root->left->parent = root;
+        return root->left;
+      }
+    } else if (root->data < value) {
+      if (root->right != nullptr) {
+        root = root->right;
+      } else {
+        root->right = new Node(value);
+        root->right->parent = root;
+        return root->right;
+      }
+    } else {
+      // Value already exists in the tree
+      return root;
+    }
+  }
+  return n;
+}
+\end{minted}
+\subsection{Удаление (<<Исключение>>)}
+Для удаления узла с заданным значением его сперва надо найти. Затем мы столкнемся с одним из трех случаев:
+\begin{enumerate}
+  \itembf{Узел имеет двух детей.} Данный узел заменяется наибольшим узлом в левом поддереве либо наименьшим узлом в правом, после чего удаляется.
+  \itembf{Узел листовой.} Он просто удаляется, ссылка родителя на этот узел устанавливается в \mverb{nullptr}.
+  \itembf{Узел имеет одного ребенка.} Вместо данного узла к его родителю подвешивается единственный ребенок. Данный узел удаляется.
+\end{enumerate}
+% Алгоритм какой-то громоздкий, поэтому пока что его опустим.
+% https://neerc.ifmo.ru/wiki/index.php?title=Дерево_поиска,_наивная_реализация
+% \begin{minted}{C++}
+% bool IsLeftChild(Node* child) {
+%   return child->parent->left == child;
+% }
+% void Delete(Node* root, int value) {
+%   while (root != nullptr) {
+%     Node* n = Find(root, value);
+%     if (n == nullptr) {
+%       // No such value
+%       return;
+%     }
+%     // Здесь не обработан краевой случай n->parent == nullptr,
+%     // поскольку он внесет излишнюю громоздкость
+%     // Случай 1: оба ребенка
+%     if (n->left != nullptr && n->right != nullptr) {
+%       Node* m = MinNode(n->right);
+%       if (IsLeftChild(m)) {
+
+%       }
+%     } else if (n->left == nullptr && n->right == nullptr) {
+%       if (IsLeftChild(n)) {
+%         n->parent->left = nullptr;
+%         delete n;
+%       } else {
+%         n->parent->right = nullptr;
+%         delete n;
+%       }
+%     } // Случай 3: один ребенок
+%     else if (n->left != nullptr) {
+%       n->parent->
+%     }
+%   }
+%   return n;
+% }
+% \end{minted}
+
 \section{Сбалансированные деревья. Сортировка с помощью бинарных деревьев (кучи)}
 Дерево называется \textbf{сбалансированным}, если максимальное значения модуля разности глубин
 любых двух его листов не превышает единицы.
