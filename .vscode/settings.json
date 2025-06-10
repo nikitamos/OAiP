@@ -12,10 +12,11 @@
             "tools": [
                 "latexmk_rconly"
             ]
-        } 
+        }
     ],
     "cSpell.language": "en,ru",
     "cSpell.words": [
+        "deque",
         "Дейкстры",
         "подмассива",
         "Подмассивы",
