@@ -859,43 +859,48 @@ $$u \gets p[u] \gets p[p[u]] \gets \cdots \gets p[p[\dots p[u]]] = s. $$
 
 \begin{minted}{C++}
 // Реализация с Википедии
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
-using namespace std;
 typedef long long ll;
 
 int main() {
-    ll inf = LLONG_MAX;
-    int n, m, a, b;
-    ll c;
-    cin >> n >> m; // n - кол-во вершин; m - кол-во рёбер
-    // Граф представляется в виде массива смежности
-    vector<vector<pair<int, ll>>> country(n); // в country[v] хранится пара (u, c), это означает, что из v есть ребро в u веса c
-    while (m--) {
-        cin >> a >> b >> c; // из вершины a идёт ребро в вершину b веса c
-        a--; b--;
-        country[a].push_back(make_pair(b, c));
+  ll inf = LLONG_MAX;
+  int n, m, a, b;
+  ll c;
+  std::cin >> n >> m; // n - кол-во вершин; m - кол-во рёбер
+  // Граф представляется в виде массива смежности
+  std::vector<std::vector<std::pair<int, ll>>> country(
+      n); // в country[v] хранится пара (u, c), это означает, что из v есть
+          // ребро в u веса c
+  while (m--) {
+    std::cin >> a >> b >> c; // из вершины a идёт ребро в вершину b веса c
+    a--;
+    b--;
+    country[a].push_back(std::make_pair(b, c));
+  }
+  // Расстояния
+  std::vector<ll> dist(n, inf);
+  dist[0] = 0;
+  std::priority_queue<std::pair<ll, int>> q;
+  q.push(std::pair(0, 0));
+  while (!q.empty()) {
+    ll len = -q.top().first; // берёт максимальный элемент очереди. Так как нам
+                             // нужно минимальное расстояние, храним расстояния
+                             // умноженные на (-1)
+    int i = q.top().second;
+    q.pop();
+    if (len > dist[i])
+      continue;
+    for (auto X : country[i]) {
+      if (dist[X.first] > dist[i] + X.second) {
+        dist[X.first] = dist[i] + X.second;
+        q.push(std::make_pair(-dist[X.first], X.first));
+      }
     }
-    // Расстояния
-    vector<ll> dist(n, inf);
-    dist[0] = 0;
-    priority_queue<pair<ll, int>> q;
-    q.push(make_pair(0, 0));
-    while (!q.empty()) {
-        ll len = -q.top().first; // берёт максимальный элемент очереди. Так как нам нужно минимальное расстояние, храним расстояния умноженные на (-1)
-        int i = q.top().second;
-        q.pop();
-        if (len > dist[i]) continue;
-        for (auto X : country[i]) {
-            if (dist[X.first] > dist[i] + X.second) {
-                dist[X.first] = dist[i] + X.second;
-                q.push(make_pair(-dist[X.first], X.first));
-    	    }
-        }
-    }
-    for (int i = 0; i < n; ++i) {
-        cout << dist[i] << " ";
-    }
+  }
+  for (int i = 0; i < n; ++i) {
+    std::cout << dist[i] << " ";
+  }
 }
 \end{minted}
 
