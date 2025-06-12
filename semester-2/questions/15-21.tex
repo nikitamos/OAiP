@@ -545,13 +545,13 @@ public:
     data_[count_] = item;
     ++count_;
   }
-  T& Find(const T& item) {
+  T* Find(const T& item) {
     for (size_t i = 0; i < count_; ++i) {
       if (data_[i] == item) {
-        return data_[i];
+        return &data_[i];
       }
     }
-    assert(false && "Stack does not contain a requested item.");
+    return nullptr;
   }
 
   T *begin() { return data_; }
@@ -633,13 +633,13 @@ public:
     return item;
   }
 
-  T& Find(const T& item) {
+  T* Find(const T& item) {
     for (size_t i = 0; i < count_; ++i) {
       if (data_[(start_ + i) % N] == item) {
-        return data_[(start_ + i) % N];
+        return &data_[(start_ + i) % N];
       }
     }
-    assert(false && "Queue does not contain a requested item.");
+    return nullptr;
   }
 
 private:
