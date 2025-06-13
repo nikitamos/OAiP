@@ -5,3 +5,101 @@
 \section{Бинарные деревья - основные понятия. Основные операции с бинарными деревьями}
 \section{Алгоритмы обхода дерева (поиск в неупорядоченном дереве)}
 \section{Добавление и удаление элементов дерева}
+Одними из основных операций с деревьями поиска являются вставка и удаление элементов дерева. Рассмотрим их на примере
+двоичного дерева поиска.
+
+\subsection{Вставка в двоичное дерево поиска}
+Вставка работает аналогично поиску, однако при обнаружении у элемента отсутствия ребенка
+нужно подвесить на него вставляемый элемент.
+\begin{minted}{cpp}
+// Вставляет элемент в двоичное дерево поиска и возвращает узел с вставленным значением
+Node *Insert(Node *root, int value) {
+    Node *current = root;
+    if (current == nullptr) {
+      // вставка в пустое дерево
+      return new Node(value);
+    }
+
+    while (true) {
+      if (value < current->value) {
+        if (current->left == nullptr) {
+          current->left = new Node(value);
+          return current->left;
+        } else {
+          current = current->left;
+        }
+      } else if (value > current->value) {
+        if (current->right == nullptr) {
+          current->right = new Node(value);
+          return current->right;
+        } else {
+          current = current->right;
+        }
+      } else /* if (key == current->key) */ {
+        // элемент уже есть в дереве
+        return current;
+      }
+    }
+
+    // инвариант дерева поиска не соблюден
+    assert(false && "Unreachable.");
+}
+\end{minted}
+\subsection{Удаление из двоичного дерева поиска}
+
+Для удаления узла с заданным значением его сперва надо найти. Затем мы столкнемся с одним из трех случаев:
+\begin{enumerate}
+  \itembf{Узел листовой.} Он просто удаляется, ссылка родителя на этот узел устанавливается в \mverb{nullptr}.
+  \itembf{Узел имеет двух детей.} Данный узел заменяется наибольшим узлом в левом поддереве либо наименьшим узлом в правом, после чего удаляется.
+  \itembf{Узел имеет одного ребенка.} Вместо данного узла к его родителю подвешивается единственный ребенок. Данный узел удаляется.
+\end{enumerate}
+
+Приведем рекурсивную реализацию данной подпрограммы:
+\begin{minted}{cpp}
+// Следующий узел по порядку сортировки
+Node *Successor(Node *curr) {
+  curr = curr->right;
+  while (curr != nullptr && curr->left != nullptr) {
+    curr = curr->left;
+  }
+  return curr;
+}
+
+// Удаляет узел с указанным значением и возвращает новый корень дерева
+Node *Remove(Node *root, int x) {
+  // Базовый случай
+  if (root == nullptr) {
+    return root;
+  }
+
+  // В поддереве
+  if (root->value > x) {
+    root->left = Remove(root->left, x);
+  } else if (root->value < x) {
+    root->right = Remove(root->right, x);
+  }
+  // В текущем узле
+  else {
+    // 0 детей
+    // или только правое поддерево
+    if (root->left == nullptr) {
+      Node *temp = root->right;
+      delete root;
+      return temp;
+    }
+
+    // Только левое поддерево
+    if (root->right == nullptr) {
+      Node *temp = root->left;
+      delete root;
+      return temp;
+    }
+
+    // Оба поддерева
+    Node *succ = Successor(root);
+    root->value = succ->value;
+    root->right = Remove(root->right, succ->value);
+  }
+  return root;
+}
+\end{minted}
